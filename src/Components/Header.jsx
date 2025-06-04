@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import logoText from '../assets/svg logo.svg'
 import { displayNotificationAtom, displayProfileAtom, displaySettingsAtom, userDataAtom } from '../atoms/userDataAtom.js';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
-import SideMenu from './SideMenu.jsx';
 
 function Header() {
 
@@ -11,18 +10,18 @@ function Header() {
 
   return (
     <>
-      
-        <div className='flex flex-row justify-between shadow-xl/10 border-0'>
-          <Link to='/'>
-            <img className='w-24 pl-4' src={logoText} alt="" />
-          </Link>
-          <div className='flex flex-row align-middle justify-center items-center gap-2'>
-            <Setting />
-            <Notification />
-            <Profile />
-          </div>
+
+      <div className='flex flex-row justify-between shadow-xl/10 border-0 h-17'>
+        <Link to='/'>
+          <img className='w-24 pl-4' src={logoText} alt="" />
+        </Link>
+        <div className='flex flex-row align-middle justify-center items-center gap-2'>
+          <Setting />
+          <Notification />
+          <Profile />
         </div>
-      
+      </div>
+
     </>
   )
 }
@@ -30,10 +29,18 @@ function Header() {
 function Setting() {
 
   const displaySettings = useSetRecoilState(displaySettingsAtom);
+  const displayNotification = useSetRecoilState(displayNotificationAtom);
+  const displayProfile = useSetRecoilState(displayProfileAtom);
+
+  function displaySettingsFunc() {
+    displayNotification(false);
+    displayProfile(false);
+    displaySettings(pre => !pre);
+  }
 
   return (
     <>
-      <div className=' w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center' onClick={() => displaySettings(pre => !pre)}>
+      <div className=' w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center' onClick={displaySettingsFunc}>
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#000000" fill="none">
             <path d="M15.5 11.5C15.5 13.433 13.933 15 12 15C10.067 15 8.5 13.433 8.5 11.5C8.5 9.567 10.067 8 12 8C13.933 8 15.5 9.567 15.5 11.5Z" stroke="#000000" strokeWidth="2"></path>
@@ -47,12 +54,19 @@ function Setting() {
 }
 
 function Notification() {
-
+  const displayProfile = useSetRecoilState(displayProfileAtom);
   const displayNotification = useSetRecoilState(displayNotificationAtom);
+  const displaySettings = useSetRecoilState(displaySettingsAtom);
+
+  function displayNotificationFunc() {
+    displaySettings(false);
+    displayProfile(false);
+    displayNotification(pre => !pre);
+  }
 
   return (
     <>
-      <div className=' w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center content-center' onClick={() => displayNotification(pre => !pre)}>
+      <div className=' w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center content-center' onClick={displayNotificationFunc}>
         <div>
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true" style={{ color: "black" }}><path d="M3 9.5a9 9 0 1 1 18 0v2.927c0 1.69.475 3.345 1.37 4.778a1.5 1.5 0 0 1-1.272 2.295h-4.625a4.5 4.5 0 0 1-8.946 0H2.902a1.5 1.5 0 0 1-1.272-2.295A9.01 9.01 0 0 0 3 12.43V9.5zm6.55 10a2.5 2.5 0 0 0 4.9 0h-4.9z"></path></svg>
         </div>
@@ -65,11 +79,19 @@ function Profile() {
 
   const userDetails = useRecoilValue(userDataAtom);
   const displayProfile = useSetRecoilState(displayProfileAtom);
+  const displayNotification = useSetRecoilState(displayNotificationAtom);
+  const displaySettings = useSetRecoilState(displaySettingsAtom);
+
+  function displayProfileFunc() {
+    displayNotification(false);
+    displaySettings(false);
+    displayProfile(pre => !pre);
+  }
 
   if (userDetails) {
     return (
       <>
-        <div className='relative ' onClick={() => displayProfile(pre => !pre)}>
+        <div className='relative ' onClick={displayProfileFunc}>
           <img className='w-12 h-12 rounded-full mr-3 z-0' src={userDetails.userData.user_profile_url} alt="profile picture" />
           <div className='absolute bottom-0 right-2 z-10'>
             <div className="bg-gray-200 rounded-full shadow-xl/15 border-0">
@@ -81,5 +103,7 @@ function Profile() {
     )
   }
 }
+
+
 
 export default Header

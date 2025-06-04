@@ -1,26 +1,17 @@
 @import "tailwindcss";
 ::-webkit-scrollbar {
-    display: none;
+    /* display: none; */
 }
 body{
     background-color: rgb(255, 255, 255);
 }
-.home_body{
-    position: relative;
+.body_right{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
 
-}
-.notification_banner{
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
-.settings_banner{
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
-.profile_banner{
-    position: absolute;
-    top: 10px;
-    right: 10px;
+/* Scroll bar hidden property */
+::-webkit-scrollbar{
+    display: none;
 }

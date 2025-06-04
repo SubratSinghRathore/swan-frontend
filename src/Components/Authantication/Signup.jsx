@@ -49,12 +49,13 @@ export default function Signup() {
                         withCredentials: true
                     })
                 if (createUser.statusText === 'OK') {
-                    console.log(createUser.statusText);
+ 
                     navigate('/', { replace: true });
 
                 }
                 else {
-
+                    console.error("Signup error:", error);
+                    alert("Something went wrong. Please try again.");
                 }
 
             }
@@ -64,7 +65,7 @@ export default function Signup() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4" style={{backgroundImage: `url(${backgroundImage})`}}>
+        <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4" style={{ backgroundImage: `url(${backgroundImage})` }}>
             <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-md">
                 <img className='w-18' src={LogoText} alt="swan logo" />
                 <h2 className="text-2xl font-bold mb-6 text-center">Create an Account</h2>

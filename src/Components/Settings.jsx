@@ -47,7 +47,7 @@ const settings = [
 
 const Settings = () => {
   return (
-    <div className="w-80 bg-white rounded-lg shadow-lg overflow-hidden notification_banner">
+    <div className="w-80 sm:w-100 overflow-scroll h-[calc(100vh-120px)] bg-white rounded-lg shadow-lg notification_banner">
       <div className="px-4 py-2 border-b flex justify-between">
         <h2 className="text-lg font-semibold">Settings</h2>
         <div className="flex gap-2">
@@ -71,7 +71,7 @@ const Settings = () => {
       </div>
       <div className="text-center border-t px-4 py-2">
         <button className="text-blue-600 font-medium hover:underline">
-          See previous notifications
+          Clear All
         </button>
       </div>
     </div>

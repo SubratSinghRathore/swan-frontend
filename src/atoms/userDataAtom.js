@@ -1,31 +1,47 @@
 import { atom, selector } from 'recoil';
 import { axiosInstance } from '../../axios/axiosInstance.js'
 
-export const userDataAtom = atom({
-    key: 'userDataAtom',
-    default: selector({
-        key: 'userDataSelector',
-        get: async () => {
-            try {
-                const userData = await axiosInstance.get(
-                    '/auth/me',
-                    {
-                        withCredentials: true,
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    }
-                );
+// export const userDataAtom = atom({
+//     key: 'userDataAtom',
+//     default: selector({
+//         key: 'userDataSelector',
+//         get: async () => {
+//             try {
+//                 const userData = await axiosInstance.get(
+//                     '/auth/me',
+//                     {
+//                         withCredentials: true,
+//                         headers: {
+//                             'Content-Type': 'application/json'
+//                         }
+//                     }
+//                 );
                 
-                return userData.data;
+//                 return userData.data;
 
-            } catch (error) {
-                console.log('Error occured in fetching user data', error);
-            }
+//             } catch (error) {
+//                 console.log('Error occured in fetching user data', error);
+//             }
+//         }
+//     })
+// });
+export const userDataAtom = selector({
+  key: 'userDataSelector',
+  get: async () => {
+    try {
+      const res = await axiosInstance.get('/auth/me', {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json'
         }
-    })
+      });
+      return res.data;
+    } catch (err) {
+      console.error('Error fetching user data:', err);
+      return null;
+    }
+  },
 });
-
 
 export const displaySettingsAtom = atom({
     key: 'displaySettingsAtom',
@@ -42,4 +58,10 @@ export const displayProfileAtom = atom({
 export const displayNotificationAtom = atom({
     key: 'displayNotification',
     default: false
+});
+
+
+export const updateProfileAtom = atom({
+  key: 'updateProfileAtom',
+  default: false
 });
