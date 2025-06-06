@@ -49,8 +49,8 @@ export default function Signup() {
                         withCredentials: true
                     })
                 if (createUser.statusText === 'OK') {
- 
-                    navigate('/', { replace: true });
+
+                    window.location.href = "/";
 
                 }
                 else {

@@ -1,9 +1,9 @@
 import React from 'react';
 import { FiLock, FiLogOut, FiCamera } from 'react-icons/fi';
 import { updateProfileAtom, userDataAtom } from '../atoms/userDataAtom';
-import { RecoilRoot, useRecoilState } from 'recoil';
+import { RecoilRoot, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { FaExchangeAlt, FaEnvelope, FaUsers, FaClock } from 'react-icons/fa';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { replace, useNavigate } from 'react-router-dom';
 import { axiosInstance } from '../../axios/axiosInstance';
 
 
@@ -12,6 +12,13 @@ const Profile = () => {
   const navigate = useNavigate();
   const [userData, setUserData] = useRecoilState(userDataAtom);
   const [updateProfile, setUpdateProfile] = useRecoilState(updateProfileAtom);
+
+  async function logout() {
+    const logout = await axiosInstance.post('/auth/logout');
+    if (logout.statusText == 'OK') {
+      window.location.href = '/'
+    }
+  }
 
   return (
     <>
@@ -56,7 +63,7 @@ const Profile = () => {
             Switch Account
           </button>
 
-          <button className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-white text-red-600 rounded-lg border border-gray-500 hover:bg-gray-200 transition">
+          <button className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-white text-red-600 rounded-lg border border-gray-500 hover:bg-gray-200 transition" onClick={logout}>
             <FiLogOut />
             Logout
           </button>
@@ -70,39 +77,46 @@ const Profile = () => {
 
 function ProfilePic() {
 
+  const userData = useSetRecoilState(userDataAtom);
 
-    function submitProfile(e) {
-      const file = e.target.files?.[0];
+  function submitProfile(e) {
+    const file = e.target.files?.[0];
 
-      if (!file) {
-        console.log("No file selected");
-        return;
-      }
-
-      const reader = new FileReader();
-
-      reader.onloadend = async () => {
-        const base64String = reader.result;
-        console.log("Base64:", base64String); // ✅ This will now print
-        try {
-          const response = await axiosInstance.post('/auth/update/profile',
-            {
-              type: "profile_pic",
-              profile_pic: base64String
-            },
-            {
-              
-            }
-          )
-        } catch (error) {
-          
-        }
-      };
-
-      reader.readAsDataURL(file); // 🟢 This triggers the reader
+    if (!file) {
+      console.log("No file selected");
+      return;
     }
 
-  
+    const reader = new FileReader();
+
+    reader.onloadend = async () => {
+      const base64String = reader.result;
+      try {
+        const response = await axiosInstance.post('/auth/update/profile',
+          {
+            type: "profile_pic",
+            profile_pic: base64String
+          },
+          {}
+        )
+        userData({
+          "userData": {
+            "user_id": 81,
+            "user_name": "Subrat Singh",
+            "user_email": "subratsingh777@gmail.com",
+            "user_mobile_no": "1111111111",
+            "user_profile_url": response.data.user_profile_url
+          }
+        })
+      } catch (error) {
+        console.log('error in uploading profile pic', error);
+      }
+    };
+
+    reader.readAsDataURL(file); // 🟢 This triggers the reader
+  }
+
+
 
   return (
     <>

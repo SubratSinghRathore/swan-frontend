@@ -1,20 +1,36 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import backgroundImage from '../../assets/background.png';
+import { axiosInstance } from '../../../axios/axiosInstance';
 
 
 export default function Login() {
-  const [email, setEmail] = useState('');
+  const [user_email_or_user_name, setuser_email_or_user_name] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {console.log("login")
     e.preventDefault();
-    // TODO: Add login logic here
-    console.log('Logging in with:', { email, password });
+    try {
+      const login = await axiosInstance.post('/auth/login',
+        {
+          user_email_or_user_name: user_email_or_user_name,
+          user_password: password
+        }, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Custom-Header': 'value',
+          'Authorization': 'Bearer your_token'
+        },
+        withCredentials: true
+      })
+      if (login.statusText === "OK") { window.location.href = "/"};
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4" style={{backgroundImage: `url(${backgroundImage})`}}>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4" style={{ backgroundImage: `url(${backgroundImage})` }}>
       <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Login to Your Account</h2>
         <form onSubmit={handleLogin} className="space-y-4">
@@ -23,8 +39,9 @@ export default function Login() {
             <input
               type="text"
               required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              name='user_email_or_user_name'
+              value={user_email_or_user_name}
+              onChange={(e) => setuser_email_or_user_name(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="you@example.com"
             />
@@ -34,6 +51,7 @@ export default function Login() {
             <input
               type="password"
               required
+              name='password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
