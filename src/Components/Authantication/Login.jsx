@@ -17,9 +17,7 @@ export default function Login() {
           user_password: password
         }, {
         headers: {
-          'Content-Type': 'application/json',
-          'Custom-Header': 'value',
-          'Authorization': 'Bearer your_token'
+          'Content-Type': 'application/json'
         },
         withCredentials: true
       })

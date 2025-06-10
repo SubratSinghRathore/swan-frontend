@@ -113,7 +113,7 @@ function ProfilePic() {
       }
     };
 
-    reader.readAsDataURL(file); // 🟢 This triggers the reader
+    reader.readAsDataURL(file);
   }
 
 
