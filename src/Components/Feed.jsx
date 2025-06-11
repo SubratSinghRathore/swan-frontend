@@ -72,7 +72,7 @@ function Feed() {
 
     return (
       <div className='flex justify-start items-center'>
-        <img className='w-8 h-8 rounded-full border-b-gray-600 m-1' src={profile} alt={username} />
+        <img className='w-8 h-8 rounded-full border-b-gray-600 m-1' src={profile} alt={username} loading='lazy'/>
         <div>{username}</div>
       </div>
     )
@@ -98,7 +98,7 @@ function Feed() {
               <PostOrigin origin={post.origin} />
             </div>
             <div className='content border border-b-gray-600 border-t-gray-600 border-l-0 border-r-0'>
-              <img className='w-9/2 max-h-140' src={post.post_url} alt="post image" />
+              <img className='w-9/2' src={post.post_url} alt="post image" loading='lazy'/>
             </div>
             <div className='bottom_bar flex-col justify-start items-center m-4'>
               <div className='max-h-20 w-full overflow-scroll break-words whitespace-normal'>

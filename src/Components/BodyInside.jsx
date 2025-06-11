@@ -44,7 +44,7 @@ function BodyLeft() {
 
     return (
         <>
-            <div className='overflow-scroll w-full h-[calc(100vh-5rem)]'>
+            <div className='overflow-scroll w-3/4 h-[calc(100vh-5rem)]'>
                 <Feed />
             </div>
             <BodyContent />

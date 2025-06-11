@@ -5,6 +5,8 @@ import { RecoilRoot, useRecoilState, useRecoilValue, useSetRecoilState } from 'r
 import { FaExchangeAlt, FaEnvelope, FaUsers, FaClock } from 'react-icons/fa';
 import { replace, useNavigate } from 'react-router-dom';
 import { axiosInstance } from '../../axios/axiosInstance';
+import Loading from './Loading';
+import { useState } from 'react';
 
 
 const Profile = () => {
@@ -31,6 +33,7 @@ const Profile = () => {
               src={userData.userData.user_profile_url}
               alt="Profile"
               className="w-24 h-24 rounded-full border-2 border-gray-300 object-cover"
+              loading='lazy'
             />
           </div>
           <h2 className="mt-4 text-xl font-semibold">{userData.userData.user_name}</h2>
@@ -78,14 +81,18 @@ const Profile = () => {
 function ProfilePic() {
 
   const userData = useSetRecoilState(userDataAtom);
+  const previousData = useRecoilValue(userDataAtom);
+
+  const [loading, setLoading] = useState(false);
 
   function submitProfile(e) {
     const file = e.target.files?.[0];
-
+    
     if (!file) {
       console.log("No file selected");
       return;
     }
+    setLoading(true);
 
     const reader = new FileReader();
 
@@ -101,14 +108,16 @@ function ProfilePic() {
         )
         userData({
           "userData": {
-            "user_id": 81,
-            "user_name": "Subrat Singh",
-            "user_email": "subratsingh777@gmail.com",
-            "user_mobile_no": "1111111111",
+            "user_id": previousData.userData.user_id,
+            "user_name": previousData.userData.user_name,
+            "user_email": previousData.userData.user_email,
+            "user_mobile_no": previousData.userData.user_mobile_no,
             "user_profile_url": response.data.user_profile_url
           }
         })
+        setLoading(false);
       } catch (error) {
+        setLoading(false);
         console.log('error in uploading profile pic', error);
       }
     };
@@ -121,7 +130,7 @@ function ProfilePic() {
   return (
     <>
       <div className='absolute top-0 flex gap-4 z-50' >
-        <input type='file' className='border border-r-gray-600 w-23 h-23 opacity-0 rounded-full' onChange={submitProfile} />
+        {loading ? <div className="p-[44px] border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div> : <input type='file' className='border border-r-gray-600 w-23 h-23 opacity-0 rounded-full' onChange={submitProfile} />}
       </div>
     </>
   )
