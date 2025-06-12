@@ -6,6 +6,7 @@ import Profile from './Profile.jsx';
 import Notification from './Notification.jsx';
 import Feed from './Feed.jsx';
 import BodyContent from './BodyContent.jsx';
+import Suggestions from './Suggestions.jsx';
 
 function BodyInside() {
     return (
@@ -34,6 +35,9 @@ function BodyRight() {
                 {displayProfile && <Profile />}
 
                 {displayNotification && <Notification />}
+
+                <Suggestions />
+
             </div>
         </>
     )

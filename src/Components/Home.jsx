@@ -6,8 +6,19 @@ import { useNavigate, Outlet } from 'react-router-dom';
 import Header from './Header.jsx';
 import SideMenu from './SideMenu.jsx';
 import BodyInside from './BodyInside.jsx';
+import { io } from 'socket.io-client';
+import { axiosInstance } from '../../axios/axiosInstance.js';
 
 export default function Home() {
+
+  useEffect(() => {
+    const socket = io('http://localhost:3000/', {
+      withCredentials: true
+    });
+    
+    
+    return (() => socket.disconnect())
+  }, [])
 
   return (
     <>
@@ -19,7 +30,6 @@ export default function Home() {
 }
 
 function HomeWrapper() {
-  console.log("home wrapper")
 
   const userDetails = useRecoilValue(userDataAtom);
   const navigate = useNavigate();
@@ -42,7 +52,6 @@ function HomeWrapper() {
 }
 
 function Body() {
-  console.log("body")
 
   return (
     <>

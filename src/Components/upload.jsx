@@ -53,7 +53,7 @@ function Upload() {
     return (
         <>
             <form onSubmit={submitHandle}>
-                <div className='bg-white flex gap-4 flex-col items-center absolute sm:top-1 sm:left-60 border sm:p-10 p-3 m-4 border-gray-600 rounded-2xl shadow-2xl '>
+                <div className='bg-white flex gap-4 flex-col items-center absolute sm:top-1 sm:left-60 bottom-10 left-10 border sm:p-10 p-3 m-auto border-gray-600 rounded-2xl shadow-2xl '>
                     <label className="sm:w-100 w-50 flex items-center gap-2 cursor-pointer text-white bg-blue-600 justify-center p-4 rounded-2xl hover:bg-blue-700">
                         <FiUpload className="text-2xl" />
                         <span className='text-2xl' ref={uploadMemo}>upload your memories</span>

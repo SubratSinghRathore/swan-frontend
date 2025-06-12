@@ -1,7 +1,4 @@
 @import "tailwindcss";
-::-webkit-scrollbar {
-    /* display: none; */
-}
 body{
     background-color: rgb(255, 255, 255);
 }

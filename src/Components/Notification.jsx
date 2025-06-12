@@ -47,7 +47,7 @@ const notifications = [
 
 const Notifications = () => {
   return (
-    <div className="w-80 sm:w-100 overflow-scroll h-[calc(100vh-120px)] bg-white rounded-lg shadow-lg notification_banner">
+    <div className="w-80 sm:w-100 overflow-scroll h-[calc(100vh-120px)] bg-white rounded-lg shadow-lg notification_banner z-100 absolute right-2">
       <div className="px-4 py-2 border-b flex justify-between">
         <h2 className="text-lg font-semibold">Notifications</h2>
         <div className="flex gap-2">

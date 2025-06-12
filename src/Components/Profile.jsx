@@ -24,7 +24,7 @@ const Profile = () => {
 
   return (
     <>
-      <div className="bg-white shadow-lg rounded-2xl p-6 profile_banner w-80 sm:w-100 overflow-scroll h-[calc(100vh-120px)]">
+      <div className="bg-white shadow-lg rounded-2xl p-6 profile_banner w-80 sm:w-100 overflow-scroll h-[calc(100vh-120px)] z-100 absolute right-2">
         <div className="flex flex-col items-center">
           <div className='relative group'>
             <ProfilePic />

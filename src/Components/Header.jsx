@@ -95,7 +95,7 @@ function Profile() {
           <img className='w-12 h-12 rounded-full mr-3 z-0' src={userDetails.userData.user_profile_url} alt="profile picture" />
           <div className='absolute bottom-0 right-2 z-10'>
             <div className="bg-gray-200 rounded-full shadow-xl/15 border-0">
-              <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style={{ color: "gray" }}><g fill-rule="evenodd" transform="translate(-448 -544)"><path fill-rule="nonzero" d="M452.707 549.293a1 1 0 0 0-1.414 1.414l4 4a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L456 552.586l-3.293-3.293z"></path></g></svg>
+              <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style={{ color: "gray" }}><g fillRule="evenodd" transform="translate(-448 -544)"><path fillRule="nonzero" d="M452.707 549.293a1 1 0 0 0-1.414 1.414l4 4a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L456 552.586l-3.293-3.293z"></path></g></svg>
             </div>
           </div>
         </div>

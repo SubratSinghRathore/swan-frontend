@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { axiosInstance } from '../../axios/axiosInstance';
 import { FaThumbsUp } from 'react-icons/fa';
+import likeAudio from '../assets/bell-notification-337658.mp3';
 
 function Feed() {
 
-
+  const audio = new Audio(likeAudio);
   const [offset, setOffset] = useState(0);
   const [posts, setPosts] = useState([]);
 
   
   async function likeFunc(id) {
+    audio.play();
     const likePost = await axiosInstance.put('/post/like',{
       post_id: id
     },{
