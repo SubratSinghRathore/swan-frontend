@@ -67,3 +67,9 @@ export const displayUploadMemoryAtom = atom({
   key: 'uploadMemory',
   default: false
 });
+
+
+export const displayFriendsAtom = atom({
+  key: 'displayFriends',
+  default: false
+});
