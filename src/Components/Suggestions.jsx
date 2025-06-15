@@ -27,7 +27,7 @@ function Suggestions() {
         }
     }, [])
 
-    async function addFriend(user_id) {console.log(user_id)
+    async function addFriend(user_id) {
         audio.play()
         try {
             const addFriend = await axiosInstance.post('/message/addfriend', {

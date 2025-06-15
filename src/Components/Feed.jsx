@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { axiosInstance } from '../../axios/axiosInstance';
 import { FaThumbsUp } from 'react-icons/fa';
 import likeAudio from '../assets/bell-notification-337658.mp3';
+import { useSetRecoilState } from 'recoil';
+import { displaySettingsAtom, displayProfileAtom, displayNotificationAtom, updateProfileAtom, displayUploadMemoryAtom } from '../atoms/userDataAtom.js';
 
 function Feed() {
 
@@ -9,6 +11,20 @@ function Feed() {
   const [offset, setOffset] = useState(0);
   const [posts, setPosts] = useState([]);
 
+  //For clearing all component if opened
+  const displaySettings = useSetRecoilState(displaySettingsAtom);
+  const displayProfile = useSetRecoilState(displayProfileAtom);
+  const displayNotification = useSetRecoilState(displayNotificationAtom);
+  const updateProfile = useSetRecoilState(updateProfileAtom);
+  const displayUploadMemory = useSetRecoilState(displayUploadMemoryAtom);
+
+  function closeAllOpenedComponents() {
+    displaySettings(false);
+    displayProfile(false);
+    displayNotification(false);
+    updateProfile(false);
+    displayUploadMemory(false);
+  }
   
   async function likeFunc(id) {
     audio.play();
@@ -93,7 +109,7 @@ function Feed() {
 
   return (
     <>
-      <div className='flex flex-col m-auto xl:max-w-xl max-w-1/2 h-screen'>
+      <div className='flex flex-col m-auto xl:max-w-xl max-w-1/2 h-screen' onClick={closeAllOpenedComponents}>
         {posts.map(post => (
           <div key={post.post_id} className='w-full rounded-xl border border-b-gray-600 m-4 shadow-sm shadow-gray-600'>
             <div className='top_bar p-2'>

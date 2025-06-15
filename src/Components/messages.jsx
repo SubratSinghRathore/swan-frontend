@@ -12,11 +12,18 @@ import FriendInfo from './FriendInfo.jsx'
 
 export default function MessageComponent() {
 
+
+  const userData = useRecoilValue(userDataAtom);
+  const socketRef = useRef(null);
+  const input = useRef(null);
+  const audio = new Audio(sendAudio);
   const [friendList, setFriendList] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedUserDetails, setSelectedUserDetails] = useState([]);
 
   useEffect(() => {
     const allFriends = async () => {
-      const friends = await axiosInstance.get('/message/friends',{
+      const friends = await axiosInstance.get('/message/friends', {
         headers: {
           "Content-Type": "application/json"
         },
@@ -26,11 +33,22 @@ export default function MessageComponent() {
     }; allFriends();
   }, [])
 
-  const userData = useRecoilValue(userDataAtom);
-  const socketRef = useRef(null);
-  const input = useRef(null);
-  const audio = new Audio(sendAudio);
-
+  useEffect(() => {
+    if (selectedUser != null) {
+      (async () => {
+        const selectedUserDetailsFunc = await axiosInstance.post('/message/friendDetails', {
+          friend_id: selectedUser
+        }, {
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          withCredentials: true
+        })
+        setSelectedUserDetails(selectedUserDetailsFunc.data.friendDetails[0]);
+      })();
+    }
+  }, [selectedUser])
+  
 
   useEffect(() => {
 
@@ -59,25 +77,14 @@ export default function MessageComponent() {
     if (!input.current.value) {
     } else {
       audio.play();
-
-      socketRef.current.emit('client-to-server-message', { to: 3, message: input.current.value });
-
+      socketRef.current.emit('client-to-server-message', { to: selectedUser, message: input.current.value });
       input.current.value = null;
     }
   }
 
 
 
-  const [selectedUser, setSelectedUser] = useState('');
-  const [messages, setMessages] = useState([]);
-  const [text, setText] = useState('');
 
-  const sendMessage = () => {
-    if (text.trim()) {
-      setMessages([...messages, { text, sender: 'me' }]);
-      setText('');
-    }
-  };
 
   return (
     <div className="flex sm:h-[calc(100vh-70px)] h-[calc(100vh-110px)]">
@@ -97,16 +104,17 @@ export default function MessageComponent() {
       </div>
       {/* Right - Chat Area */}
       <div className="flex-1 flex flex-col border-r min-w-[calc(100vh-410px)]">
-        <div className="p-4 border-b font-bold text-lg bg-gray-100 h-15">
-          {selectedUser.name}
+        <div className="p-4 border-b font-bold text-lg bg-gray-100 h-15 flex gap-3 justify-start items-center">
+          <img width='38px' className='rounded-full' src={selectedUserDetails.user_profile_url} alt="" />
+          {selectedUserDetails.user_name}
         </div>
 
         <div className="flex-1 overflow-y-auto p-4 space-y-2">
-          {messages.map((msg, index) => (
+          {/* {messages.map((msg, index) => (
             <div key={index} className={`max-w-xs p-2 rounded-lg ${msg.sender === 'me' ? 'ml-auto bg-blue-500 text-white' : 'mr-auto bg-gray-300 text-black'}`}>
               {msg.text}
             </div>
-          ))}
+          ))} */}
         </div>
         {/* Bottom input and send button */}
         <div className='grid grid-cols-7 gap-2 items-center justify-center w-full p-3'>

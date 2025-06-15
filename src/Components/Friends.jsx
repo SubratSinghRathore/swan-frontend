@@ -1,13 +1,116 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import { IoMdArrowRoundBack } from "react-icons/io";
+import { axiosInstance } from '../../axios/axiosInstance';
+import { displayFriendsAtom } from '../atoms/userDataAtom';
+import { useSetRecoilState } from 'recoil';
+import { Link } from 'react-router-dom';
 
 function Friends() {
+
+    const serDisplayFriend = useSetRecoilState(displayFriendsAtom);
+
     return (
         <div>
-            <div className='bg-white flex gap-4 flex-col items-center absolute z-200 sm:top-1 sm:left-60 bottom-10 left-10 border sm:p-10 p-3 m-auto border-gray-600 rounded-2xl shadow-2xl max-w-[80vw] scroll-auto overflow-scroll'>
-                my name is aman Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae eveniet debitis, similique ipsam hic alias ipsa explicabo delectus voluptate, harum numquam autem, soluta quibusdam rem molestia Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit laudantium suscipit numquam enim, aspernatur in sed excepturi quidem neque quisquam, voluptate ipsam amet pariatur, assumenda perspiciatis. Suscipit temporibus, mollitia sed atque dolores nam ipsam voluptatem in ex obcaecati rerum accusantium, quisquam soluta commodi deserunt minus dolor quis veniam consectetur! Minus, distinctio magni alias eius dolorem quam impedit provident rem mollitia laudantium eos excepturi repudiandae animi et saepe repellendus ducimus? Deleniti nesciunt totam assumenda, nostrum delectus maiores distinctio recusandae voluptate quos, consequatur facilis repudiandae similique dolore repellat quia ab sunt ipsa corrupti, amet velit omnis provident minima. Quas vitae maxime animi dolore voluptas optio iusto libero magni. Eaque sint quasi ipsa, magni illum laborum cupiditate in repellendus hic. Recusandae laborum, modi ullam dolorem excepturi quas voluptas expedita eveniet cumque omnis officiis laudantium saepe atque suscipit consequuntur consequatur quod dolorum nemo sint error molestias aperiam autem placeat voluptatem. Qui alias facilis aut ipsa excepturi dolore, obcaecati similique! Magnam consequuntur recusandae atque debitis odio tempore dicta. Totam similique nihil, consequuntur ex modi consectetur cumque aliquid, corporis expedita facilis sit laborum eum illo quis voluptate culpa corrupti veniam perspiciatis incidunt enim cum provident. Accusamus, temporibus illum dolorum aliquid debitis magnam quae eos quam excepturi animi ipsam, rerum ducimus. Eaque debitis quod commodi ab blanditiis expedita fugit, dolor iusto nisi at! Quod molestias maiores sequi est quos debitis ducimus, reiciendis assumenda sunt natus architecto, perferendis quae nulla dolorum quasi quia beatae magnam harum animi? Assumenda, maxime nihil. Modi saepe exercitationem, consectetur cumque quo ab, hic explicabo nesciunt voluptas ad dolor tempore commodi nulla atque, quibusdam mollitia rem facere placeat aspernatur? Libero harum magni assumenda dolore exercitationem, sapiente unde incidunt quisquam repellendus architecto maxime accusamus voluptatum doloribus sequi veritatis itaque repudiandae enim quod? Accusantium voluptate eos ipsum, odio optio saepe error aliquid soluta, accusamus, facere nobis dignissimos. Ipsam unde hic deleniti. Voluptatibus tempora porro sit amet iusto perspiciatis, accusantium incidunt nam. Accusantium amet aspernatur esse, minus qui vitae sint magnam ipsam odit laboriosam ab iure doloribus. Doloremque ut dignissimos ipsa expedita laborum accusamus modi nulla quae, incidunt possimus, nam impedit tempora ratione fuga. Voluptas, id. Nisi adipisci consectetur quidem! Incidunt eligendi saepe vitae sit cum, quia nobis quisquam magnam vero sed cupiditate explicabo nostrum voluptatem iste, facere sequi. Labore aliquid eos assumenda perferendis, sint sequi eius, perspiciatis accusamus consequatur illo culpa officia, ad natus sunt. Enim laborum cum blanditiis, repellat asperiores nostrum tempore repellendus inventore magni expedita voluptas vero cumque quae vel totam! Esse totam amet ipsum aut et, voluptatum reiciendis eum tenetur veritatis voluptatibus autem earum fugiat rerum magni hic, corrupti rem atque aperiam expedita! Sit ab suscipit voluptates asperiores iure reiciendis natus veniam quos voluptatum. Laborum neque ad consectetur deserunt. Laborum laudantium exercitationem a aspernatur, maiores aliquid odio obcaecati unde error inventore. Earum possimus nihil nobis quasi minus maiores, architecto hic omnis! Voluptates tempore dolorem ex voluptatem facilis voluptate quas beatae, iusto fugiat nam dicta omnis, nemo quod culpa optio rem consequuntur eligendi laboriosam a? Iure totam accusantium soluta magni, dolorum, harum, nihil quis molestiae officiis debitis error quasi reiciendis? Laboriosam omnis esse quas earum neque minus, laudantium reiciendis. Reprehenderit, sit iste consectetur minima temporibus nisi neque excepturi sint! Vero perspiciatis nulla fugit ut, ducimus, iure optio blanditiis vitae ad accusamus nihil facilis qui veniam molestias cupiditate dolorem nobis repellendus, ea consequuntur! Iusto ratione quasi reiciendis aut non enim animi molestias neque rerum ipsam, illo quia aliquid eius praesentium odio porro possimus. Placeat recusandae vitae eaque corporis nobis tenetur, a repellendus delectus rem soluta deserunt eligendi repudiandae enim, praesentium doloremque neque sequi illum distinctio atque? Dignissimos nam doloremque saepe mollitia architecto ad dolor fuga, libero sit praesentium atque dolorem dolorum pariatur similique in voluptatibus temporibus possimus maxime aperiam iste, sunt perferendis facilis? Provident harum nam consequatur doloribus, eum consectetur ex dicta nisi beatae id blanditiis tempore modi, a sed nostrum quos facere. Labore repellendus exercitationem, error inventore nisi animi impedit? Asperiores, excepturi eos temporibus ducimus ex obcaecati quam, voluptatem repellendus tenetur expedita exercitationem iste voluptatum, mollitia eum animi cum tempore ut. Harum non, saepe totam veritatis aperiam distinctio nostrum. Amet nobis fuga autem dicta soluta aliquam impedit iure voluptate, tenetur, explicabo est inventore, aspernatur laboriosam eaque vero atque quibusdam ipsum cupiditate possimus? Sit iste dolorum accusantium quia, officiis dignissimos necessitatibus eius minus dolorem quas repellendus suscipit quam commodi iure harum doloremque cupiditate architecto ab. Iste error voluptas provident animi ullam! Nisi sint illo enim provident fuga, veniam laborum blanditiis, commodi omnis, incidunt fugit qui architecto praesentium molestiae aut quas possimus facilis aperiam tempore alias soluta nihil velit recusandae? Molestias facere aperiam commodi ipsa amet accusantium autem suscipit ipsum quasi doloribus? Unde magni porro eos? Sunt error quae asperiores deserunt cum fugit aspernatur possimus inventore? Quasi laboriosam repellendus earum quam omnis odit fugit, reiciendis doloribus suscipit at dolores voluptas qui? Quidem nisi voluptatum cum repellendus sapiente eveniet aliquid atque aspernatur nesciunt veniam? Cupiditate modi, mollitia unde iure vero saepe? Quia quos voluptatibus, eaque dicta voluptatum eum quam atque, vitae eligendi neque fugiat, nesciunt amet architecto numquam magnam similique incidunt voluptas. Maxime culpa dolorem odio asperiores molestias delectus rerum pariatur perferendis sequi recusandae optio qui, harum obcaecati, ut atque mollitia! Veritatis a laborum reiciendis neque accusamus quo reprehenderit cum ipsa suscipit nihil, est facere necessitatibus quod corrupti beatae nam maiores eaque consectetur quisquam blanditiis laboriosam, facilis libero. Repellat distinctio quam soluta ullam hic facilis quo necessitatibus architecto sed nostrum nobis tempore, in eligendi magnam, ducimus vitae modi corporis unde qui saepe iste non aut, eos asperiores. Voluptatibus, et. Ratione sint minima placeat praesentium. Eius ad, vero ab velit saepe laudantium possimus, porro rem, asperiores iste minima ducimus nisi quo iure voluptates corrupti a quaerat ea itaque optio nesciunt quasi? Quaerat, quae adipisci? Nesciunt saepe dolores iusto, id quaerat dignissimos nulla! Vero, numquam qui sunt nisi iste laudantium magnam ab praesentium ullam repudiandae dolore. Saepe nobis, ad facilis suscipit ea doloribus nihil fugit architecto ipsa nostrum illo corporis, distinctio facere nulla molestiae voluptatem vero tempore corrupti labore dicta illum sapiente eaque. Iusto, quia? Voluptates error repudiandae nostrum. e saepe. Quod labore corporis tempora dicta accusantium explicabo voluptates distinctio, accusamus aliquid debitis consequuntur deleniti repellendus fuga!
+            <div className='bg-white flex gap-4 flex-col items-start justify-start absolute z-200 sm:top-1 sm:left-60 bottom-10 left-10 border sm:p-10 p-3 m-auto border-gray-600 rounded-2xl shadow-2xl w-[80vw] scroll-auto overflow-scroll'>
+                <div className="flex justify-start items-center gap-4 font-semibold text-2xl text-blue-600">
+                    <IoMdArrowRoundBack className='cursor-pointer' onClick={() => serDisplayFriend(false)} />
+                    <div>friends</div>
+                </div>
+                <Allfriends />
             </div>
         </div>
     )
 }
+
+
+function Allfriends() {
+
+    const [FriendList, setFriendList] = useState([]);
+
+    useEffect(() => {
+        const allFriends = async () => {
+            const friends = await axiosInstance.get('/message/friends', {
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                withCredentials: true
+            })
+            setFriendList(friends.data.allFriends)
+        }; allFriends();
+    }, [])
+
+    return (
+        <>
+            <div>
+                {FriendList.map(friend => {
+                    return (
+                        <div className='w-[70vw] pl-6 pt-2 m-4 pb-2 border-b border-b-stone-600' key={friend.friend_id}>
+                            <FriendInfo friend_id={friend.friend_id} />
+                        </div>
+                    )
+                })}
+            </div>
+        </>
+    )
+}
+
+
+function FriendInfo({ friend_id }) {
+
+    const [friendDetails, setFriendDetails] = useState([])
+
+    useEffect(() => {
+        try {
+            const friendDetailsFunction = async () => {
+                const friendDetails = await axiosInstance.post('/message/friendDetails', {
+                    friend_id
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    withCredentials: true
+                })
+                setFriendDetails(friendDetails.data.friendDetails[0]);
+            }; friendDetailsFunction();
+        } catch (error) {
+            console.log('error in fetching  friend details', error);
+        }
+    }, [])
+
+
+    async function unfriend(friend_id) {
+        try {
+            const unfriend = await axiosInstance.delete('/message/unfriend', {
+                data: {friend_id: friend_id}
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                withCredentials: true
+            })
+            if (unfriend.data.msg === 'unfriend sucessfully') {return 'removed'}
+            else {return 'retry'}
+        } catch (error) {
+            console.log('error in removing friend', error);
+        }
+    }
+
+
+    return (
+        <div className='flex justify-between items-center'>
+            <div className='flex justify-start items-center gap-2'>
+                <img className='w-12 rounded-full' src={friendDetails.user_profile_url} alt={friendDetails.user_name}></img>
+                <div className='sm:text-2xl font-semibold' >{friendDetails.user_name}</div>
+            </div>
+            <div className='flex justify-center items-center gap-6'>
+                <Link to='messages'>
+                <button className='bg-blue-600 hover:bg-blue-700 pt-2 pb-2 pl-4 pr-4 rounded-xl cursor-pointer text-sky-50' type="button">message</button>
+                </Link>
+                <button className='bg-white hover:bg-gray-200 pt-2 pb-2 pl-4 pr-4 rounded-xl cursor-pointer border-gray-600 border-collapse border' type='button' onClick={async (e) => {const msg = await unfriend(friendDetails.user_id); e.target.innerHTML = msg;}}>Unfriend</button>
+            </div>
+        </div>
+    )
+}
+
 
 export default Friends
