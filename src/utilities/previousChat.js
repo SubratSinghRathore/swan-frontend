@@ -10,7 +10,7 @@ export default function previousChat(user_id, friend_id) {
         },
         withCredentials: true
     })
-    .then((res) => {console.log(res.data.messages)
+    .then((res) => {
         return (res.data.messages);
     })
     // if(messages) {return messages.data};

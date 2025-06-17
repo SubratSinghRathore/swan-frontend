@@ -17,6 +17,9 @@ export default function MessageComponent() {
   const userData = useRecoilValue(userDataAtom);
   const socketRef = useRef(null);
   const input = useRef(null);
+  const lastOneMessage = useRef(null);
+  const messageBody = useRef(null);
+  const scrollToBotom = useRef(null);
   const audio = new Audio(sendAudio);
   const [friendList, setFriendList] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -65,11 +68,13 @@ export default function MessageComponent() {
     })
 
     socketRef.current.emit('setStatus', userData.userData.user_id);
-    socketRef.current.on('allUsers', (array) => { for (const [a, b] of array) console.log(a, b) });
+    socketRef.current.on('allUsers', (array) => {});
 
 
-    socketRef.current.on('server-to-client-message', (msg) => {
-      console.log(msg)
+    socketRef.current.on('server-to-client-message', (obj) => {
+      if (selectedUser === obj.from) {
+        setMessages(pre => [...pre, { sender_id: obj.from, message: obj.message }]);
+      }
     })
 
 
@@ -79,12 +84,19 @@ export default function MessageComponent() {
   }, [])
 
 
+  useEffect(() => {
+    scrollToBotom.current?.scrollIntoView({ behaviour: 'smooth' });
+  }, [messages])
+
+
   function send() {
 
     if (!input.current.value) {
     } else {
       audio.play();
-      socketRef.current.emit('client-to-server-message', { to: selectedUser, message: input.current.value });
+      lastOneMessage.current = input.current.value
+      socketRef.current.emit('client-to-server-message', { from: userData.userData.user_id, to: selectedUser, message: lastOneMessage.current });
+      setMessages(pre => [...pre, { sender_id: userData.userData.user_id, message: lastOneMessage.current }]);
       input.current.value = null;
     }
   }
@@ -113,13 +125,15 @@ export default function MessageComponent() {
           {selectedUserDetails.user_name}
         </div>
 
-        <div className="flex-1 overflow-y-auto p-4 space-y-2">
-          {messages.map((message, index) => (
-            <div key={index} className='flex flex-col'>
-              <div className={message.sender_id === userData.userData.user_id ? 'text-black sm:text-2xl bg-gray-300 self-start p-3 rounded-2xl rounded-tl-none' : 'text-white sm:text-2xl bg-blue-500 self-end p-3 rounded-2xl rounded-tr-none'}>{message.message}</div>
-            </div>
-          ))}
-        </div>
+        {selectedUser ?
+          <div ref={messageBody} className="flex-1 overflow-y-auto p-4 space-y-2">
+            {messages.map((message, index) => (
+              <div key={index} className='flex flex-col'>
+                <div className={message.sender_id === userData.userData.user_id ? 'text-black sm:text-2xl bg-gray-300 self-end p-3 rounded-2xl rounded-tl-none' : 'text-white sm:text-2xl bg-blue-500 self-start p-3 rounded-2xl rounded-tr-none'}>{message.message}</div>
+              </div>
+            ))}
+            <div ref={scrollToBotom} />
+          </div> : null}
         {/* Bottom input and send button */}
         {selectedUser ?
           <div className='grid grid-cols-7 gap-2 items-center justify-center w-full p-3'>
