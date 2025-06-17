@@ -8,6 +8,7 @@ import io from 'socket.io-client';
 import sendAudio from '../assets/send-message.mp3';
 import { axiosInstance } from '../../axios/axiosInstance.js';
 import FriendInfo from './FriendInfo.jsx'
+import previousChat from '../utilities/previousChat.js';
 
 
 export default function MessageComponent() {
@@ -20,6 +21,7 @@ export default function MessageComponent() {
   const [friendList, setFriendList] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [selectedUserDetails, setSelectedUserDetails] = useState([]);
+  const [messages, setMessages] = useState([])
 
   useEffect(() => {
     const allFriends = async () => {
@@ -34,7 +36,7 @@ export default function MessageComponent() {
   }, [])
 
   useEffect(() => {
-    if (selectedUser != null) {
+    if (selectedUser) {
       (async () => {
         const selectedUserDetailsFunc = await axiosInstance.post('/message/friendDetails', {
           friend_id: selectedUser
@@ -46,9 +48,15 @@ export default function MessageComponent() {
         })
         setSelectedUserDetails(selectedUserDetailsFunc.data.friendDetails[0]);
       })();
+
+      //Grab userprevious chats
+      previousChat(userData.userData.user_id, selectedUser).then((res) => { setMessages(res) })
+
     }
+
+
   }, [selectedUser])
-  
+
 
   useEffect(() => {
 
@@ -71,7 +79,6 @@ export default function MessageComponent() {
   }, [])
 
 
-
   function send() {
 
     if (!input.current.value) {
@@ -81,9 +88,6 @@ export default function MessageComponent() {
       input.current.value = null;
     }
   }
-
-
-
 
 
   return (
@@ -110,19 +114,20 @@ export default function MessageComponent() {
         </div>
 
         <div className="flex-1 overflow-y-auto p-4 space-y-2">
-          {/* {messages.map((msg, index) => (
-            <div key={index} className={`max-w-xs p-2 rounded-lg ${msg.sender === 'me' ? 'ml-auto bg-blue-500 text-white' : 'mr-auto bg-gray-300 text-black'}`}>
-              {msg.text}
+          {messages.map((message, index) => (
+            <div key={index} className='flex flex-col'>
+              <div className={message.sender_id === userData.userData.user_id ? 'text-black sm:text-2xl bg-gray-300 self-start p-3 rounded-2xl rounded-tl-none' : 'text-white sm:text-2xl bg-blue-500 self-end p-3 rounded-2xl rounded-tr-none'}>{message.message}</div>
             </div>
-          ))} */}
+          ))}
         </div>
         {/* Bottom input and send button */}
-        <div className='grid grid-cols-7 gap-2 items-center justify-center w-full p-3'>
-          <label htmlFor="send" className='col-span-6'>
-            <input ref={input} onKeyDown={(e) => e.key === 'Enter' ? send() : null} type="text" autoFocus placeholder='Type your message...' className='w-full h-12 outline p-3 text-2xl rounded-sm focus' />
-          </label>
-          <button type='submit' onClick={send} className='text-5xl text-white bg-blue-500 hover:bg-blue-600 w-full flex justify-center rounded-sm border border-blue-600 '><VscSend className='hover:translate-x-2 duration-200 w-full' /></button>
-        </div>
+        {selectedUser ?
+          <div className='grid grid-cols-7 gap-2 items-center justify-center w-full p-3'>
+            <label htmlFor="send" className='col-span-6'>
+              <input ref={input} onKeyDown={(e) => e.key === 'Enter' ? send() : null} type="text" autoFocus placeholder='Type your message...' className='w-full h-12 outline p-3 text-2xl rounded-sm focus' />
+            </label>
+            <button type='submit' onClick={send} className='text-5xl text-white bg-blue-500 hover:bg-blue-600 w-full flex justify-center rounded-sm border border-blue-600 '><VscSend className='hover:translate-x-2 duration-200 w-full' /></button>
+          </div> : null}
       </div>
     </div>
   );
