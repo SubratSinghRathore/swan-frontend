@@ -73,3 +73,9 @@ export const displayFriendsAtom = atom({
   key: 'displayFriends',
   default: false
 });
+
+
+export const displaySearchAtom = atom({
+  key: 'displaySearch',
+  default: false
+});

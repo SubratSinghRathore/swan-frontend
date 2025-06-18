@@ -106,7 +106,7 @@ export default function MessageComponent() {
     <div className="flex sm:h-[calc(100vh-70px)] h-[calc(100vh-110px)]">
       {/* Left - User List */}
       <div className="sm:min-w-32 w-60 border-l p-4 overflow-y-auto bg-gray-50">
-        <div className="flex justify-between items-center font-semibold text-2xl mb-4 text-blue-600">
+        <div className="flex justify-between items-center font-semibold text-2xl mb-4 text-blue-600 [@media(max-width:400px)]:text-sm">
           Messages
           <Link to='/'>
             <IoMdArrowRoundBack />
@@ -136,11 +136,11 @@ export default function MessageComponent() {
           </div> : null}
         {/* Bottom input and send button */}
         {selectedUser ?
-          <div className='grid grid-cols-7 gap-2 items-center justify-center w-full p-3'>
-            <label htmlFor="send" className='col-span-6'>
-              <input ref={input} onKeyDown={(e) => e.key === 'Enter' ? send() : null} type="text" autoFocus placeholder='Type your message...' className='w-full h-12 outline p-3 text-2xl rounded-sm focus' />
+          <div className='grid sm:grid-cols-7 grid-cols-6 items-center justify-center w-full p-3'>
+            <label htmlFor="send" className='sm:col-span-6 col-span-5'>
+              <input ref={input} onKeyDown={(e) => e.key === 'Enter' ? send() : null} type="text" autoFocus placeholder='Type your message...' className='w-full h-12 outline p-3 sm:text-2xl text-xl rounded-l-full focus border-r-0' />
             </label>
-            <button type='submit' onClick={send} className='text-5xl text-white bg-blue-500 hover:bg-blue-600 w-full flex justify-center rounded-sm border border-blue-600 '><VscSend className='hover:translate-x-2 duration-200 w-full' /></button>
+            <button type='submit' onClick={send} className=' text-5xl text-white bg-blue-500 hover:bg-blue-600 w-full flex justify-center rounded-r-full border border-blue-600 '><VscSend className='hover:translate-x-2 duration-200 w-full' /></button>
           </div> : null}
       </div>
     </div>

@@ -109,7 +109,7 @@ function Feed() {
 
   return (
     <>
-      <div className='flex flex-col m-auto xl:max-w-xl max-w-1/2 h-screen' onClick={closeAllOpenedComponents}>
+      <div className='flex flex-col m-auto xl:max-w-xl max-w-2/3 h-screen' onClick={closeAllOpenedComponents}>
         {posts.map(post => (
           <div key={post.post_id} className='w-full rounded-xl border border-b-gray-600 m-4 shadow-sm shadow-gray-600'>
             <div className='top_bar p-2'>
