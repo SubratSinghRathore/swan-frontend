@@ -1,6 +1,6 @@
 import axios from 'axios';
 
 export const axiosInstance = axios.create({
-    baseURL: 'https://swan-backend.onrender.com/',
+    baseURL: 'https://swan-backend.onrender.com',
     withCredentials: true
 });
