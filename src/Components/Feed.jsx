@@ -25,12 +25,12 @@ function Feed() {
     updateProfile(false);
     displayUploadMemory(false);
   }
-  
+
   async function likeFunc(id) {
     audio.play();
-    const likePost = await axiosInstance.put('/post/like',{
+    const likePost = await axiosInstance.put('/post/like', {
       post_id: id
-    },{
+    }, {
       headers: {
         "Content-Type": "application/json"
       },
@@ -90,7 +90,7 @@ function Feed() {
 
     return (
       <div className='flex justify-start items-center'>
-        <img className='w-8 h-8 rounded-full border-b-gray-600 m-1' src={profile} alt={username} loading='lazy'/>
+        <img className='w-8 h-8 rounded-full border-b-gray-600 m-1' src={profile} alt={username} loading='lazy' />
         <div>{username}</div>
       </div>
     )
@@ -116,15 +116,18 @@ function Feed() {
               <PostOrigin origin={post.origin} />
             </div>
             <div className='content border border-b-gray-600 border-t-gray-600 border-l-0 border-r-0'>
-              <img className='w-9/2' src={post.post_url} alt="post image" loading='lazy'/>
+              <img className='w-9/2' src={post.post_url} alt="post image" loading='lazy' />
             </div>
             <div className='bottom_bar flex-col justify-start items-center m-4'>
               <div className='max-h-20 w-full overflow-scroll break-words whitespace-normal'>
                 {post.description}
               </div>
-              <div className='flex justify-start items-center'>
-                <FaThumbsUp onClick={() => likeFunc(post.post_id)} className='cursor-pointer m-1 fill-blue-600 w-6 text-2xl'/>
-                {post.total_likes != 0 ? exceedLikes(post.total_likes) : "Be the first to like"}
+              <div className='flex justify-between items-center'>
+                <div className='flex justify-start items-center'>
+                  <FaThumbsUp onClick={() => likeFunc(post.post_id)} className='cursor-pointer m-1 fill-blue-600 w-6 text-2xl' />
+                  {post.total_likes != 0 ? exceedLikes(post.total_likes) : "Be the first to like"}
+                </div>
+                <div>{new Date(post.created_at).toLocaleDateString()}</div>
               </div>
             </div>
           </div>
