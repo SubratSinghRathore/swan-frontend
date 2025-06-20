@@ -115,7 +115,7 @@ function Feed() {
             <div className='top_bar p-2'>
               <PostOrigin origin={post.origin} />
             </div>
-            <div className='content border border-b-gray-600 border-t-gray-600 border-l-0 border-r-0'>
+            <div className='content border border-b-gray-600 border-t-gray-600 border-l-0 border-r-0 '>
               <img className='w-9/2' src={post.post_url} alt="post image" loading='lazy' />
             </div>
             <div className='bottom_bar flex-col justify-start items-center m-4'>

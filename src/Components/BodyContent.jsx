@@ -3,7 +3,7 @@ import { useRecoilValue } from 'recoil';
 import { displayUploadMemoryAtom, displayFriendsAtom, displaySearchAtom } from '../atoms/userDataAtom.js'
 import Upload from './upload.jsx';
 import Friends from './Friends.jsx';
-import Search from './Search.jsx';
+import Search from './Search.comp.jsx';
 
 function BodyContent() {
 

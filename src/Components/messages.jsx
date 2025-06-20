@@ -65,7 +65,7 @@ export default function MessageComponent() {
 
   useEffect(() => {
 
-    socketRef.current = io('https://swan-backend.onrender.com', {
+    socketRef.current = io('http://localhost:3000', {
       withCredentials: true
     })
 
@@ -78,7 +78,6 @@ export default function MessageComponent() {
 
 
     socketRef.current.on('server-to-client-message', (obj) => {
-      console.log('server-to-client-message', obj.message);
       if (selectedUserRef.current === obj.from) {
         setMessages(pre => [...pre, { sender_id: obj.from, message: obj.message }]);
       }
@@ -110,9 +109,9 @@ export default function MessageComponent() {
 
 
   return (
-    <div className="flex sm:h-[calc(100vh-70px)] h-[calc(100vh-110px)]">
+    <div className="flex sm:h-[calc(100vh-70px)] h-[calc(100vh-120px)]">
       {/* Left - User List */}
-      <div className="sm:min-w-32 w-60 border-l p-4 overflow-y-auto bg-gray-50">
+      <div className="sm:min-w-32 w-60 border-l p-4 overflow-y-auto bg-gray-50 h-full [@media(max-width:400px)]:w-[40%] [@media(max-width:500px)]:w-[45%]">
         <div className="flex justify-between items-center font-semibold text-2xl mb-4 text-blue-600 [@media(max-width:400px)]:text-sm">
           Messages
           <Link to='/'>
@@ -126,7 +125,7 @@ export default function MessageComponent() {
         ))}
       </div>
       {/* Right - Chat Area */}
-      <div className="flex-1 flex flex-col border-r min-w-[calc(100vh-410px)]">
+      <div className="flex-1 flex flex-col border-r">
         <div className="p-4 border-b font-bold text-lg bg-gray-100 h-15 flex gap-3 justify-start items-center">
           <img width='38px' className='rounded-full' src={selectedUserDetails.user_profile_url} alt="" />
           {selectedUserDetails.user_name}
