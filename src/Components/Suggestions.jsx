@@ -51,7 +51,7 @@ function Suggestions() {
 
 
     return (
-        <div className="w-80 sm:w-90 overflow-scroll h-[calc(100vh-120px)] bg-white rounded-lg shadow-lg notification_banner right-2 z-50 absolute top-2 hidden xl:block">
+        <div className="w-80 sm:w-90 overflow-scroll h-[calc(100vh-120px)] bg-white rounded-lg shadow-lg notification_banner right-2 z-50 absolute top-2 [@media(max-width:1500px)]:hidden">
             <div className="px-4 py-2 flex justify-between text-blue-600 text-2xl font-medium sticky top-0 bg-white">
                 Suggestions
             </div>

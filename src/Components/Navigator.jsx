@@ -1,11 +1,13 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { useSetRecoilState } from 'recoil';
-import { displayFriendsAtom } from '../atoms/userDataAtom.js';
+import { displayFriendsAtom, displayUploadMemoryAtom } from '../atoms/userDataAtom.js';
+import { IoIosAddCircleOutline } from "react-icons/io";
 
 export default function Navigator() {
 
   const displayFriends = useSetRecoilState(displayFriendsAtom);
+  const displayUploadMemory = useSetRecoilState(displayUploadMemoryAtom);
 
   return (
     <>
@@ -22,6 +24,7 @@ export default function Navigator() {
           <path d="M12.9998 7H13.0088" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"></path>
         </svg>
         </NavLink>
+        <IoIosAddCircleOutline className='text-white text-4xl' onClick={() => displayUploadMemory(pre => !pre)}/>
         <NavLink to={"messages"}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30" color="white" fill="none">
             <path d="M8.5 14.5H15.5M8.5 9.5H12" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>

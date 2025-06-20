@@ -11,7 +11,7 @@ function Friends() {
 
     return (
         <div>
-            <div className='bg-white flex gap-4 flex-col items-start justify-start absolute z-200 sm:top-1 sm:left-60 bottom-10 left-10 border sm:p-10 p-3 m-auto border-gray-600 rounded-2xl shadow-2xl w-[80vw] scroll-auto overflow-scroll'>
+            <div className='bg-white w-[60%] flex gap-4 flex-col items-start justify-start absolute z-200 sm:top-1 sm:left-60 bottom-10 left-10 border sm:p-10 p-3 m-auto border-gray-600 rounded-2xl shadow-2xl scroll-auto overflow-scroll'>
                 <div className="flex justify-start items-center gap-4 font-semibold text-2xl text-blue-600">
                     <IoMdArrowRoundBack className='cursor-pointer' onClick={() => serDisplayFriend(false)} />
                     <div>friends</div>
@@ -41,10 +41,10 @@ function Allfriends() {
 
     return (
         <>
-            <div>
+            <div className='w-[100%]'>
                 {FriendList.map(friend => {
                     return (
-                        <div className='w-[70vw] pl-6 pt-2 m-4 pb-2 border-b border-b-stone-600' key={friend.friend_id}>
+                        <div className='w-[100%] pt-2 m-4 pb-2 border-b border-b-stone-600' key={friend.friend_id}>
                             <FriendInfo friend_id={friend.friend_id} />
                         </div>
                     )
@@ -97,10 +97,10 @@ function FriendInfo({ friend_id }) {
 
 
     return (
-        <div className='flex justify-between items-center'>
+        <div className='flex justify-between items-center w-[100%]'>
             <div className='flex justify-start items-center gap-2'>
                 <img className='w-12 rounded-full' src={friendDetails.user_profile_url} alt={friendDetails.user_name}></img>
-                <div className='sm:text-2xl font-semibold' >{friendDetails.user_name}</div>
+                <div className='sm:text-xl font-semibold' >{friendDetails.user_name}</div>
             </div>
             <div className='flex justify-center items-center gap-6'>
                 <Link to='messages'>

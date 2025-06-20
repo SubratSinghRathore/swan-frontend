@@ -53,14 +53,14 @@ function Upload() {
     return (
         <>
             <form onSubmit={submitHandle}>
-                <div className='bg-white flex gap-4 flex-col items-center absolute sm:top-1 sm:left-60 bottom-10 left-10 border sm:p-10 p-3 m-auto border-gray-600 rounded-2xl shadow-2xl '>
-                    <label className="sm:w-100 w-50 flex items-center gap-2 cursor-pointer text-white bg-blue-600 justify-center p-4 rounded-2xl hover:bg-blue-700">
-                        <FiUpload className="text-2xl" />
-                        <span className='text-2xl' ref={uploadMemo}>upload your memories</span>
+                <div className='bg-white flex gap-4 flex-col items-center absolute sm:top-1 sm:left-60 w-[60%] top-5 left-15 border sm:p-10 p-3 m-auto border-gray-600 rounded-2xl shadow-2xl '>
+                    <label className=" w-[80%] flex items-center gap-2 cursor-pointer text-white bg-blue-600 justify-center p-4 rounded-2xl hover:bg-blue-700">
+                        <FiUpload className="sm:text-2xl text-xl" />
+                        <span className='sm:text-2xl text-xl' ref={uploadMemo}>upload your memories</span>
                         <input type="file" accept="image/*" className="hidden" onChange={(e) => setFile(e.target.files?.[0])} />
                     </label>
-                    <input type="text" placeholder="What's in your mind!" className="sm:w-100 w-50 h-3xl border p-2 text-2xl rounded-sm" onChange={(e) => setDescription(e.target.value)} />
-                    <button ref={uploadBtn} type='submit' onSubmit={submitHandle} className='text-white w-60 items-center align-middle bg-blue-600 justify-center p-2 rounded-2xl hover:bg-blue-700'>Upload</button>
+                    <input type="text" placeholder="What's in your mind!" className="w-[80%] h-3xl border p-2 sm:text-2xl text-xl rounded-sm" onChange={(e) => setDescription(e.target.value)} />
+                    <button ref={uploadBtn} type='submit' onSubmit={submitHandle} className='w-[40%] text-xl text-white items-center align-middle bg-blue-600 justify-center p-2 rounded-2xl hover:bg-blue-700'>Upload</button>
                 </div>
             </form>
         </>
