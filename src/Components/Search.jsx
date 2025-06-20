@@ -45,7 +45,7 @@ function Search() {
 
 
     return (
-        <div>{console.log(allUsers)}
+        <div>
             <div className='bg-white flex gap-4 flex-col items-start justify-start absolute z-200 sm:top-1 sm:left-60 bottom-10 left-10 border sm:p-10 p-3 m-auto border-gray-600 rounded-2xl shadow-2xl w-[80vw] scroll-auto overflow-scroll'>
                 <div className="flex justify-between items-center gap-4 font-semibold text-2xl text-blue-600 w-full">
                     <IoMdArrowRoundBack className='cursor-pointer text-4xl' onClick={() => displaySearch(false)} />

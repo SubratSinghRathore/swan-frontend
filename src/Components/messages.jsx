@@ -20,9 +20,10 @@ export default function MessageComponent() {
   const lastOneMessage = useRef(null);
   const messageBody = useRef(null);
   const scrollToBotom = useRef(null);
+  const selectedUserRef = useRef(null);
   const audio = new Audio(sendAudio);
-  const [friendList, setFriendList] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [friendList, setFriendList] = useState([]);
   const [selectedUserDetails, setSelectedUserDetails] = useState([]);
   const [messages, setMessages] = useState([])
 
@@ -40,6 +41,7 @@ export default function MessageComponent() {
 
   useEffect(() => {
     if (selectedUser) {
+      selectedUserRef.current = selectedUser;
       (async () => {
         const selectedUserDetailsFunc = await axiosInstance.post('/message/friendDetails', {
           friend_id: selectedUser
@@ -67,12 +69,17 @@ export default function MessageComponent() {
       withCredentials: true
     })
 
-    socketRef.current.emit('setStatus', userData.userData.user_id);
-    socketRef.current.on('allUsers', (array) => {});
+    socketRef.current.on('connect', () => {
+
+      socketRef.current.emit('setStatus', userData.userData.user_id);
+      socketRef.current.on('allUsers', (array) => {});
+
+    })
 
 
     socketRef.current.on('server-to-client-message', (obj) => {
-      if (selectedUser === obj.from) {
+      console.log('server-to-client-message', obj.message);
+      if (selectedUserRef.current === obj.from) {
         setMessages(pre => [...pre, { sender_id: obj.from, message: obj.message }]);
       }
     })
