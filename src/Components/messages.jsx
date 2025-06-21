@@ -21,6 +21,7 @@ export default function MessageComponent() {
   const messageBody = useRef(null);
   const scrollToBotom = useRef(null);
   const selectedUserRef = useRef(null);
+  const friendRef = useRef(null);
   const audio = new Audio(sendAudio);
   const [selectedUser, setSelectedUser] = useState(null);
   const [friendList, setFriendList] = useState([]);
@@ -65,14 +66,14 @@ export default function MessageComponent() {
 
   useEffect(() => {
 
-    socketRef.current = io('https://swan-backend.onrender.com', {
+    socketRef.current = io('https://swan-backend.onrender.com/', {
       withCredentials: true
     })
 
     socketRef.current.on('connect', () => {
 
       socketRef.current.emit('setStatus', userData.userData.user_id);
-      socketRef.current.on('allUsers', (array) => {});
+      socketRef.current.on('allUsers', (array) => { });
 
     })
 
@@ -111,7 +112,7 @@ export default function MessageComponent() {
   return (
     <div className="flex sm:h-[calc(100vh-70px)] h-[calc(100vh-120px)]">
       {/* Left - User List */}
-      <div className="sm:min-w-32 w-60 border-l p-4 overflow-y-auto bg-gray-50 h-full [@media(max-width:400px)]:w-[40%] [@media(max-width:500px)]:w-[45%]">
+      <div ref={friendRef} className="sm:min-w-32 w-60 border-l p-4 overflow-y-auto bg-gray-50 h-full [@media(max-width:400px)]:w-[40%] [@media(max-width:500px)]:w-full">
         <div className="flex justify-between items-center font-semibold text-2xl mb-4 text-blue-600 [@media(max-width:400px)]:text-sm">
           Messages
           <Link to='/'>
@@ -119,20 +120,24 @@ export default function MessageComponent() {
           </Link>
         </div>
         {friendList.map((friend) => (
-          <div key={friend.friend_id} onClick={() => setSelectedUser(friend.friend_id)} className={`p-2 cursor-pointer rounded hover:bg-blue-100`}>
+          <div key={friend.friend_id} onClick={() => { setSelectedUser(friend.friend_id); friendRef.current.style.display = 'none' }} className={`p-2 cursor-pointer rounded hover:bg-blue-100`}>
             <FriendInfo friend_id={friend.friend_id} />
           </div>
         ))}
       </div>
       {/* Right - Chat Area */}
       <div className="flex-1 flex flex-col border-r">
-        <div className="p-4 border-b font-bold text-lg bg-gray-100 h-15 flex gap-3 justify-start items-center">
-          <img width='38px' className='rounded-full' src={selectedUserDetails.user_profile_url} alt="" />
-          {selectedUserDetails.user_name}
-        </div>
+        {selectedUser ?
+          <div className='flex justify-between items-center border-b font-bold text-lg bg-gray-100 h-15'>
+            <div className=" flex gap-3 justify-start items-center">
+              <img width='38px' className='rounded-full' src={selectedUserDetails.user_profile_url} alt="user_profile" />
+              {selectedUserDetails.user_name}
+            </div>
+            <IoMdArrowRoundBack onClick={() => { friendRef.current.style.display = 'block'; setSelectedUser(null) }} className='m-4 text-2xl text-blue-600' />
+          </div> : null}
 
         {selectedUser ?
-          <div ref={messageBody} className="flex-1 overflow-y-auto p-4 space-y-2">
+          <div ref={messageBody} className="flex-1 overflow-y-auto p-4 ">
             {messages.map((message, index) => (
               <div key={index} className='flex flex-col'>
                 <div className={message.sender_id === userData.userData.user_id ? 'text-black sm:text-2xl bg-gray-300 self-end p-3 rounded-2xl rounded-tr-none' : 'text-white sm:text-2xl bg-blue-500 self-start p-3 rounded-2xl rounded-tl-none'}>{message.message}</div>
@@ -141,13 +146,13 @@ export default function MessageComponent() {
             <div ref={scrollToBotom} />
           </div> : null}
         {/* Bottom input and send button */}
-        
+        {selectedUser ?
           <div className='grid sm:grid-cols-7 grid-cols-6 items-center justify-center w-full p-3'>
             <label htmlFor="send" className='sm:col-span-6 col-span-5'>
               <input ref={input} onKeyDown={(e) => e.key === 'Enter' ? send() : null} type="text" autoFocus placeholder='Type your message...' className='w-full h-12 outline p-3 sm:text-2xl text-xl rounded-l-full focus border-r-0' />
             </label>
             <button type='submit' onClick={send} className=' text-5xl text-white bg-blue-500 hover:bg-blue-600 w-full flex justify-center rounded-r-full border border-blue-600 '><VscSend className='hover:translate-x-2 duration-200 w-full' /></button>
-          </div>
+          </div> : null}
       </div>
     </div>
   );
