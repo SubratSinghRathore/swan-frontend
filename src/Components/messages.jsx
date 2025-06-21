@@ -66,7 +66,7 @@ export default function MessageComponent() {
 
   useEffect(() => {
 
-    socketRef.current = io('http://localhost:3000', {
+    socketRef.current = io('https://swan-backend.onrender.com', {
       withCredentials: true
     })
 
