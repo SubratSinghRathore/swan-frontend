@@ -66,7 +66,7 @@ export default function MessageComponent() {
 
   useEffect(() => {
 
-    socketRef.current = io('https://swan-backend.onrender.com/', {
+    socketRef.current = io('http://localhost:3000', {
       withCredentials: true
     })
 
@@ -115,7 +115,7 @@ export default function MessageComponent() {
       <div ref={friendRef} className="sm:min-w-32 w-60 border-l p-4 overflow-y-auto bg-gray-50 h-full [@media(max-width:400px)]:w-[40%] [@media(max-width:500px)]:w-full">
         <div className="flex justify-between items-center font-semibold text-2xl mb-4 text-blue-600 [@media(max-width:400px)]:text-sm">
           Messages
-          <Link to='/'>
+          <Link to='/feed'>
             <IoMdArrowRoundBack />
           </Link>
         </div>

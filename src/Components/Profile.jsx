@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { FiLock, FiLogOut, FiCamera } from 'react-icons/fi';
-import { updateProfileAtom, userDataAtom } from '../atoms/userDataAtom';
+import { displayProfileAtom, updateProfileAtom, userDataAtom } from '../atoms/userDataAtom';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { FaExchangeAlt, FaEnvelope, FaUsers, FaClock } from 'react-icons/fa';
+import { IoClose } from "react-icons/io5";
 import { replace, useNavigate } from 'react-router-dom';
 import { axiosInstance } from '../../axios/axiosInstance';
 import Loading from './Loading';
@@ -11,11 +12,14 @@ import { useState } from 'react';
 
 const Profile = () => {
 
+  const logoutRef = useRef(null);
   const navigate = useNavigate();
   const [userData, setUserData] = useRecoilState(userDataAtom);
   const [updateProfile, setUpdateProfile] = useRecoilState(updateProfileAtom);
+  const setDisplayProfile = useSetRecoilState(displayProfileAtom);
 
   async function logout() {
+    logoutRef.current.innerHTML = "Loging Out"
     const logout = await axiosInstance.post('/auth/logout');
     if (logout.status >= 200 && logout.status < 300) {
       window.location.href = '/';
@@ -26,6 +30,9 @@ const Profile = () => {
   return (
     <>
       <div className="bg-white shadow-lg rounded-2xl p-6 profile_banner w-80 sm:w-100 overflow-scroll h-[calc(100vh-120px)] z-100 absolute right-2">
+        <div className='flex flex-col justify-start items-end'>
+          <IoClose onClick={() => setDisplayProfile(false)} className='text-gray-600 text-2xl ' />
+        </div>
         <div className="flex flex-col items-center">
           <div className='relative group'>
             <ProfilePic />
@@ -67,7 +74,7 @@ const Profile = () => {
             Switch Account
           </button>
 
-          <button className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-white text-red-600 rounded-lg border border-gray-500 hover:bg-gray-200 transition" onClick={logout}>
+          <button className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-white text-red-600 rounded-lg border border-gray-500 hover:bg-gray-200 transition" ref={logoutRef} onClick={logout}>
             <FiLogOut />
             Logout
           </button>

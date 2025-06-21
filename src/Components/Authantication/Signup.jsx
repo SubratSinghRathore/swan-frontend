@@ -48,10 +48,8 @@ export default function Signup() {
                     {
                         withCredentials: true
                     })
-                if (createUser.statusText === 'OK') {
-
+                if (createUser.status >=200 && createUser.status < 300) {
                     window.location.href = "/";
-
                 }
                 else {
                     console.error("Signup error:", error);

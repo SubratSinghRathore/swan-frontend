@@ -7,23 +7,12 @@ import Header from './Header.jsx';
 
 export default function Home() {
 
-  return (
-    <>
-
-      <HomeWrapper />
-
-    </>
-  )
-}
-
-function HomeWrapper() {
-
   const userDetails = useRecoilValue(userDataAtom);
   const navigate = useNavigate();
   useEffect(() => {
     if (!userDetails) {
       navigate('/signup', { replace: true });
-    }
+    } else { navigate('/feed', { replace: true }) };
   }, [userDetails, navigate]);
 
   return (
@@ -35,8 +24,8 @@ function HomeWrapper() {
 
     </>
   );
-
 }
+
 
 function Body() {
 

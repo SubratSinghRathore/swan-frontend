@@ -10,7 +10,6 @@ function Upload() {
     const [description, setDescription] = useState('');
     const uploadBtn = useRef(null)
     const uploadMemo = useRef(null)
-
     const uploadMemory = useSetRecoilState(displayUploadMemoryAtom);
 
     function submitHandle(e) {
