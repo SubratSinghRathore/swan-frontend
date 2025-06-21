@@ -1,7 +1,7 @@
 import React from 'react';
 import { FiLock, FiLogOut, FiCamera } from 'react-icons/fi';
 import { updateProfileAtom, userDataAtom } from '../atoms/userDataAtom';
-import { RecoilRoot, useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { FaExchangeAlt, FaEnvelope, FaUsers, FaClock } from 'react-icons/fa';
 import { replace, useNavigate } from 'react-router-dom';
 import { axiosInstance } from '../../axios/axiosInstance';
@@ -17,9 +17,10 @@ const Profile = () => {
 
   async function logout() {
     const logout = await axiosInstance.post('/auth/logout');
-    if (logout.statusText == 'OK') {
-      window.location.href = '/'
+    if (logout.status >= 200 && logout.status < 300) {
+      window.location.href = '/';
     }
+
   }
 
   return (
@@ -87,7 +88,7 @@ function ProfilePic() {
 
   function submitProfile(e) {
     const file = e.target.files?.[0];
-    
+
     if (!file) {
       console.log("No file selected");
       return;
