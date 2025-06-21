@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import backgroundImage from '../../assets/background.png';
 import { axiosInstance } from '../../../axios/axiosInstance';
 
 
 export default function Login() {
+
+  const loginRef = useRef(null);
   const [user_email_or_user_name, setuser_email_or_user_name] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = async (e) => {console.log("login")
+  const handleLogin = async (e) => {
+    loginRef.current.innerHTML="Logging In"
     e.preventDefault();
     try {
       const login = await axiosInstance.post('/auth/login',
@@ -57,6 +60,7 @@ export default function Login() {
             />
           </div>
           <button
+          ref={loginRef}
             type="submit"
             className="w-full bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition duration-200"
           >

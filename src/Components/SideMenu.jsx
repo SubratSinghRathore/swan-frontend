@@ -29,7 +29,7 @@ export default function Sidebar() {
           </div>
 
           {/* Messages */}
-          <Link to="messages">
+          <Link to="/messages">
             <div className="flex items-center gap-3 hover:bg-gray-200 p-2 rounded cursor-pointer">
               <FaEnvelope className="text-blue-600 text-xl" />
               <span className="text-gray-800 font-medium">Messages</span>
@@ -43,7 +43,7 @@ export default function Sidebar() {
           </div>
 
           {/* Memories */}
-          <Link to='gallery'>
+          <Link to='/gallery'>
             <div className="flex items-center gap-3 hover:bg-gray-200 p-2 rounded cursor-pointer">
               <FaClock className="text-blue-600 text-xl" />
               <span className="text-gray-800 font-medium">Memories</span>

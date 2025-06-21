@@ -147,7 +147,7 @@ function Messages() {
           </div> : null}
         {/* Bottom input and send button */}
         {selectedUser ?
-          <div className='grid sm:grid-cols-7 grid-cols-6 items-center justify-center w-full p-3'>
+          <div className='grid sm:grid-cols-7 grid-cols-6 items-center justify-center w-full p-3 mb-8'>
             <label htmlFor="send" className='sm:col-span-6 col-span-5'>
               <input ref={input} onKeyDown={(e) => e.key === 'Enter' ? send() : null} type="text" autoFocus placeholder='Type your message...' className='w-full h-12 outline p-3 sm:text-2xl text-xl rounded-l-full focus border-r-0' />
             </label>

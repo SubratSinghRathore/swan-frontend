@@ -52,14 +52,14 @@ function Upload() {
     return (
         <>
             <form onSubmit={submitHandle}>
-                <div className='bg-white flex gap-4 flex-col items-center absolute sm:top-1 sm:left-60 w-[60%] top-5 left-15 border sm:p-10 p-3 m-auto border-gray-600 rounded-2xl shadow-2xl '>
+                <div className='bg-white flex gap-4 flex-col items-center absolute sm:top-1 sm:left-60 sm:w-[60%] w-[80%] top-5 left-[10%] border sm:p-10 p-3 m-auto border-gray-600 rounded-2xl shadow-2xl '>
                     <label className=" w-[80%] flex items-center gap-2 cursor-pointer text-white bg-blue-600 justify-center p-4 rounded-2xl hover:bg-blue-700">
                         <FiUpload className="sm:text-2xl text-xl" />
                         <span className='sm:text-2xl text-xl' ref={uploadMemo}>upload your memories</span>
                         <input type="file" accept="image/*" className="hidden" onChange={(e) => setFile(e.target.files?.[0])} />
                     </label>
                     <input type="text" placeholder="What's in your mind!" className="w-[80%] h-3xl border p-2 sm:text-2xl text-xl rounded-sm" onChange={(e) => setDescription(e.target.value)} />
-                    <button ref={uploadBtn} type='submit' onSubmit={submitHandle} className='w-[40%] text-xl text-white items-center align-middle bg-blue-600 justify-center p-2 rounded-2xl hover:bg-blue-700'>Upload</button>
+                    <button ref={uploadBtn} type='submit' onSubmit={submitHandle} className='w-[60%] text-xl text-white items-center align-middle bg-blue-600 justify-center p-2 rounded-2xl hover:bg-blue-700'>Upload</button>
                 </div>
             </form>
         </>
