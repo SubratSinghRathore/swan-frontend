@@ -137,7 +137,7 @@ function Messages() {
           </div> : null}
 
         {selectedUser ?
-          <div ref={messageBody} className="flex-1 overflow-y-auto p-4 ">
+          <div ref={messageBody} className="flex flex-col gap-[10px] h-full overflow-y-auto p-4 ">
             {messages.map((message, index) => (
               <div key={index} className='flex flex-col'>
                 <div className={message.sender_id === userData.userData.user_id ? 'text-black sm:text-2xl bg-gray-300 self-end p-3 rounded-2xl rounded-tr-none' : 'text-white sm:text-2xl bg-blue-500 self-start p-3 rounded-2xl rounded-tl-none'}>{message.message}</div>
