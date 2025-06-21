@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Link, replace, useNavigate } from 'react-router-dom';
 import LogoText from '../../assets/svg logo.svg';
 import backgroundImage from '../../assets/background.png';
+import { axiosInstance } from '../../../axios/axiosInstance';
 
 export default function Signup() {
     const navigate = useNavigate();
@@ -29,7 +30,7 @@ export default function Signup() {
 
         //checking username availability
         try {
-            const usernameAvailablability = await axios.post('http://localhost:3000/auth/attempt', {
+            const usernameAvailablability = await axiosInstance.post('/auth/attempt', {
                 user_name: formData.username
             })
             const usernameAvailable = usernameAvailablability.data.availability
@@ -39,7 +40,7 @@ export default function Signup() {
 
             } else if (usernameAvailable) {
                 //username available
-                const createUser = await axios.post('http://localhost:3000/auth/signup', {
+                const createUser = await axiosInstance.post('/auth/signup', {
                     user_name: formData.username,
                     user_email: formData.email,
                     user_mobile_no: formData.mobile,
