@@ -11,7 +11,7 @@ import FriendInfo from './FriendInfo.jsx'
 import previousChat from '../utilities/previousChat.js';
 
 
-export default function MessageComponent() {
+export default function Messages() {
 
 
   const userData = useRecoilValue(userDataAtom);
