@@ -135,19 +135,19 @@ export default function MessageComponent() {
           <div ref={messageBody} className="flex-1 overflow-y-auto p-4 space-y-2">
             {messages.map((message, index) => (
               <div key={index} className='flex flex-col'>
-                <div className={message.sender_id === userData.userData.user_id ? 'text-black sm:text-2xl bg-gray-300 self-end p-3 rounded-2xl rounded-tl-none' : 'text-white sm:text-2xl bg-blue-500 self-start p-3 rounded-2xl rounded-tr-none'}>{message.message}</div>
+                <div className={message.sender_id === userData.userData.user_id ? 'text-black sm:text-2xl bg-gray-300 self-end p-3 rounded-2xl rounded-tr-none' : 'text-white sm:text-2xl bg-blue-500 self-start p-3 rounded-2xl rounded-tl-none'}>{message.message}</div>
               </div>
             ))}
             <div ref={scrollToBotom} />
           </div> : null}
         {/* Bottom input and send button */}
-        {selectedUser ?
+        
           <div className='grid sm:grid-cols-7 grid-cols-6 items-center justify-center w-full p-3'>
             <label htmlFor="send" className='sm:col-span-6 col-span-5'>
               <input ref={input} onKeyDown={(e) => e.key === 'Enter' ? send() : null} type="text" autoFocus placeholder='Type your message...' className='w-full h-12 outline p-3 sm:text-2xl text-xl rounded-l-full focus border-r-0' />
             </label>
             <button type='submit' onClick={send} className=' text-5xl text-white bg-blue-500 hover:bg-blue-600 w-full flex justify-center rounded-r-full border border-blue-600 '><VscSend className='hover:translate-x-2 duration-200 w-full' /></button>
-          </div> : null}
+          </div>
       </div>
     </div>
   );
