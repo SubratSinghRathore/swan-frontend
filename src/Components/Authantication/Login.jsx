@@ -21,7 +21,7 @@ export default function Login() {
         },
         withCredentials: true
       })
-      if (login.statusText === "OK") { window.location.href = "/"};
+      if (login.status >= 200 && login.status < 300) { window.location.href = "/"};
     } catch (error) {
       console.log(error)
     }
