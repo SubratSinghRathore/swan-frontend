@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { FiLock, FiLogOut, FiCamera } from 'react-icons/fi';
 import { displayProfileAtom, updateProfileAtom, userDataAtom } from '../atoms/userDataAtom';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
@@ -29,7 +30,7 @@ const Profile = () => {
 
   return (
     <>
-      <div className="bg-white shadow-lg rounded-2xl p-6 profile_banner w-80 sm:w-100 overflow-scroll h-[calc(100vh-120px)] z-100 absolute right-2">
+      <div className="bg-white shadow-lg rounded-2xl p-6 profile_banner w-80 sm:w-100 overflow-scroll z-100 absolute right-2">
         <div className='flex flex-col justify-start items-end'>
           <IoClose onClick={() => setDisplayProfile(false)} className='text-gray-600 text-2xl ' />
         </div>
@@ -48,12 +49,14 @@ const Profile = () => {
           <p className="text-gray-600">{userData.userData.user_email}</p>
         </div>
 
-        <div className="w-88 h-max p-4 shadow-md flex flex-col gap-4">
+        <div className="sm:w-88 w-[100%] h-max  p-4 shadow-md flex flex-col gap-4">
           {/* Messages */}
-          <div className="flex items-center gap-3 hover:bg-gray-200 p-2 rounded cursor-pointer">
-            <FaEnvelope className="text-blue-600 text-xl" />
-            <span className="text-gray-800 font-medium">Messages</span>
-          </div>
+          <Link to="/messages">
+            <div className="flex items-center gap-3 hover:bg-gray-200 p-2 rounded cursor-pointer">
+              <FaEnvelope className="text-blue-600 text-xl" />
+              <span className="text-gray-800 font-medium">Messages</span>
+            </div>
+          </Link>
 
           {/* Friends */}
           <div className="flex items-center gap-3 hover:bg-gray-200 p-2 rounded cursor-pointer">
@@ -62,10 +65,12 @@ const Profile = () => {
           </div>
 
           {/* Memories */}
-          <div className="flex items-center gap-3 hover:bg-gray-200 p-2 rounded cursor-pointer">
-            <FaClock className="text-blue-600 text-xl" />
-            <span className="text-gray-800 font-medium">Memories</span>
-          </div>
+          <Link to="/gallery">
+            <div className="flex items-center gap-3 hover:bg-gray-200 p-2 rounded cursor-pointer">
+              <FaClock className="text-blue-600 text-xl" />
+              <span className="text-gray-800 font-medium">Memories</span>
+            </div>
+          </Link>
         </div>
 
         <div className="mt-6 space-y-3">

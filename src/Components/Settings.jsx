@@ -10,7 +10,7 @@ const Settings = () => {
   const setdisplaySetting = useSetRecoilState(displaySettingsAtom)
 
   return (
-    <div className="w-80 sm:w-100 overflow-scroll h-[calc(100vh-120px)] bg-white rounded-lg shadow-lg notification_banner z-100 absolute right-2">
+    <div className="w-80 sm:w-100 overflow-scroll sm:h-[calc(100vh-120px)] h-[calc(100vh-160px)] bg-white rounded-lg shadow-lg notification_banner z-100 absolute right-2">
       <div className="px-4 py-2 flex justify-between">
         <h2 className="text-lg font-semibold text-blue-600">Settings</h2>
           <IoClose onClick={() => setdisplaySetting(false)} className='text-gray-600 text-2xl' />
