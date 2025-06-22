@@ -104,9 +104,9 @@ function FriendInfo({ friend_id }) {
             </div>
             <div className='flex justify-center items-center lg:gap-6 gap-3'>
                 <Link to='messages'>
-                <button className='bg-blue-600 hover:bg-blue-700 p-1 lg:pt-2 lg:pb-2 lg:pl-4 lg:pr-4 rounded-sm lg:rounded-xl cursor-pointer text-sky-50' type="button">message</button>
+                <button className='bg-blue-600 hover:bg-blue-700 p-1 lg:pt-2 lg:pb-2 lg:pl-4 lg:pr-4 rounded-sm lg:rounded-xl cursor-pointer text-sky-50 [@media(max-width:400px)]:text-[12px]' type="button">message</button>
                 </Link>
-                <button className='bg-white hover:bg-gray-200 p-1 lg:pt-2 lg:pb-2 lg:pl-4 lg:pr-4 rounded-sm lg:rounded-xl cursor-pointer border-gray-600 border-collapse border' type='button' onClick={async (e) => {const msg = await unfriend(friendDetails.user_id); e.target.innerHTML = msg;}}>Unfriend</button>
+                <button className='bg-white hover:bg-gray-200 p-1 lg:pt-2 lg:pb-2 lg:pl-4 lg:pr-4 rounded-sm lg:rounded-xl cursor-pointer border-gray-600 border-collapse border [@media(max-width:400px)]:text-[12px]' type='button' onClick={async (e) => {const msg = await unfriend(friendDetails.user_id); e.target.innerHTML = msg;}}>Unfriend</button>
             </div>
         </div>
     )

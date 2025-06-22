@@ -110,7 +110,7 @@ function Messages() {
 
 
   return (
-    <div className="flex sm:h-[calc(100vh-70px)] h-[calc(100vh-180px)]">
+    <div className="flex sm:h-[calc(100vh-70px)] h-[calc(100vh-185px)]">
       {/* Left - User List */}
       <div ref={friendRef} className="sm:min-w-32 w-60 border-l p-4 overflow-y-auto bg-gray-50 h-full [@media(max-width:400px)]:w-[40%] [@media(max-width:500px)]:w-full">
         <div className="flex justify-between items-center font-semibold text-2xl mb-4 text-blue-600">

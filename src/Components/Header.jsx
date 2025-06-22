@@ -1,8 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import logoText from '../assets/svg logo.svg'
-import { displayNotificationAtom, displayProfileAtom, displaySettingsAtom, userDataAtom } from '../atoms/userDataAtom.js';
+import { displayNotificationAtom, displayProfileAtom, displaySearchAtom, displaySettingsAtom, userDataAtom } from '../atoms/userDataAtom.js';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
+import { FaSearch } from 'react-icons/fa';
 
 function Header() {
 
@@ -16,6 +17,7 @@ function Header() {
           <img className='w-24 pl-4' src={logoText} alt="" />
         </Link>
         <div className='flex flex-row align-middle justify-center items-center gap-2'>
+          <Search />
           <Setting />
           <Notification />
           <Profile />
@@ -23,6 +25,29 @@ function Header() {
       </div>
 
     </>
+  )
+}
+
+function Search() {
+
+  const displaySearch = useSetRecoilState(displaySearchAtom)
+  const displaySettings = useSetRecoilState(displaySettingsAtom);
+  const displayNotification = useSetRecoilState(displayNotificationAtom);
+  const displayProfile = useSetRecoilState(displayProfileAtom);
+
+  function displaySearchFunc() {
+    displayNotification(false);
+    displayProfile(false);
+    displaySettings(false);
+    displaySearch(pre => !pre);
+  }
+
+  return (
+    <div className=' w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center' onClick={displaySearchFunc}>
+      <div>
+        <FaSearch className='text-xl' />
+      </div>
+    </div>
   )
 }
 

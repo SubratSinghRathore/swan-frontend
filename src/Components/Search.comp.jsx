@@ -46,16 +46,16 @@ function Search() {
 
     return (
         <div>
-            <div className='bg-white sm:flex gap-4 flex-col items-start justify-start absolute z-200 sm:top-1 sm:left-60 hidden border sm:p-10 p-3 m-auto border-gray-600 rounded-2xl shadow-2xl w-[60%] scroll-auto overflow-scroll'>
+            <div className='bg-white sm:flex gap-4 flex-col items-start justify-start absolute z-200 w-[100%] sm:top-1 sm:left-60 left-0 border sm:p-10 p-3 sm:m-auto border-gray-600 rounded-2xl shadow-2xl sm:w-[60%] scroll-auto overflow-scroll'>
                 <div className="flex justify-between items-center gap-4 font-semibold text-2xl text-blue-600 w-full">
                     <IoMdArrowRoundBack className='cursor-pointer text-4xl' onClick={() => displaySearch(false)} />
                     <div className='w-full'>
                         <input type="text" placeholder='search...' onChange={(e) => searchUser(e.target.value)} className='w-full text-black h-12 outline p-3 pl-5 sm:text-2xl text-xl rounded-full focus border-r-0' />
                     </div>
                 </div>
-                <div className='w-[100%]'>
+                <div className='w-[90%]'>
                     {allUsers.map((user, index) => (
-                        <div className='flex justify-between items-center w-[100%] pl-1 pt-2 m-4 pb-2 border-b border-b-stone-600' key={index}>
+                        <div className='flex justify-between items-center w-[100%] pt-2 m-4 pb-2 border-b border-b-stone-600' key={index}>
                             <div className='flex justify-start items-center gap-2'>
                                 <img className='w-12 rounded-full [@media(max-width:400px)]:w-8' src={user.user_profile_url} alt={user.user_name}></img>
                                 <div className='text-xl font-semibold [@media(max-width:400px)]:text-sm' >{user.user_name}</div>
