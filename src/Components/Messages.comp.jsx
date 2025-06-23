@@ -80,6 +80,7 @@ function Messages() {
 
     socketRef.current.on('server-to-client-message', (obj) => {
       if (selectedUserRef.current === obj.from) {
+        audio.play();
         setMessages(pre => [...pre, { sender_id: obj.from, message: obj.message }]);
       }
     })
@@ -100,7 +101,6 @@ function Messages() {
 
     if (!input.current.value) {
     } else {
-      audio.play();
       lastOneMessage.current = input.current.value
       socketRef.current.emit('client-to-server-message', { from: userData.userData.user_id, to: selectedUser, message: lastOneMessage.current });
       setMessages(pre => [...pre, { sender_id: userData.userData.user_id, message: lastOneMessage.current }]);
