@@ -33,7 +33,7 @@ function Search() {
                 withCredentials: true
             })
             if (addFriend.status >= 200 && addFriend.status < 300) {
-                return 'done';
+                return 'requested';
             } else {
                 return 'Oops retry';
             }

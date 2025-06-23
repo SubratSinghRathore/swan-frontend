@@ -11,7 +11,7 @@ export default function Login() {
   const [password, setPassword] = useState('');
 
   const handleLogin = async (e) => {
-    loginRef.current.innerHTML="Logging In"
+    loginRef.current.innerHTML = "Logging In"
     e.preventDefault();
     try {
       const login = await axiosInstance.post('/auth/login',
@@ -24,7 +24,8 @@ export default function Login() {
         },
         withCredentials: true
       })
-      if (login.status >= 200 && login.status < 300) { window.location.href = "/"};
+      if (login.status >= 200 && login.status < 300) { window.location.href = "/" }
+      else { loginRef.current.innerHTML = "Invalid Credentials" }
     } catch (error) {
       console.log(error)
     }
@@ -60,7 +61,7 @@ export default function Login() {
             />
           </div>
           <button
-          ref={loginRef}
+            ref={loginRef}
             type="submit"
             className="w-full bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition duration-200"
           >

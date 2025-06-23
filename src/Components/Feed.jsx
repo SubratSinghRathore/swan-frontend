@@ -36,9 +36,7 @@ function Feed() {
       },
       withCredentials: true
     });
-    if (likePost.statusText === 'OK') {
-      console.log('done')
-    }
+    return (likePost.data.total_likes);
   }
 
 
@@ -99,11 +97,11 @@ function Feed() {
 
 
   function exceedLikes(likes) {
-    if (likes > 10000000) { return "10M+ Likes" }
-    else if (likes > 1000000) { return "1M+ Likes" }
-    else if (likes > 100000) { return "100K+ Likes" }
-    else if (likes > 10000) { return "10K+ Likes" }
-    else { return likes + " Likes" }
+    if (likes > 10000000) { return "10M+" }
+    else if (likes > 1000000) { return "1M+" }
+    else if (likes > 100000) { return "100K+" }
+    else if (likes > 10000) { return "10K+" }
+    else { return likes }
   }
 
 
@@ -123,9 +121,11 @@ function Feed() {
                 {post.description}
               </div>
               <div className='flex justify-between items-center'>
-                <div className='flex justify-start items-center'>
-                  <FaThumbsUp onClick={() => likeFunc(post.post_id)} className='cursor-pointer m-1 fill-blue-600 w-6 text-2xl' />
-                  {post.total_likes != 0 ? exceedLikes(post.total_likes) : "Be the first to like"}
+                <div className='flex justify-start relative'>
+                  <FaThumbsUp className='m-1 fill-blue-600 w-6 text-2xl' />
+                  <div className='flex justify-end items-center cursor-pointer absolute w-[180%] h-[100%] top-[0%] left-[0%]' onClick={async (e) => { const likes = (await likeFunc(post.post_id)); e.target.innerHTML = likes }}>
+                    {post.total_likes != 0 ? exceedLikes(post.total_likes) : "Be the first to like"}
+                  </div>
                 </div>
                 <div>{new Date(post.created_at).toLocaleDateString()}</div>
               </div>
