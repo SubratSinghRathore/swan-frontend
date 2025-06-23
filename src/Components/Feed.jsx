@@ -3,7 +3,7 @@ import { axiosInstance } from '../../axios/axiosInstance';
 import { FaThumbsUp } from 'react-icons/fa';
 import likeAudio from '../assets/bell-notification-337658.mp3';
 import { useSetRecoilState } from 'recoil';
-import { displaySettingsAtom, displayProfileAtom, displayNotificationAtom, updateProfileAtom, displayUploadMemoryAtom } from '../atoms/userDataAtom.js';
+import { displaySettingsAtom, displayProfileAtom, displayNotificationAtom, updateProfileAtom, displayUploadMemoryAtom, displaySearchAtom } from '../atoms/userDataAtom.js';
 
 function Feed() {
 
@@ -17,6 +17,7 @@ function Feed() {
   const displayNotification = useSetRecoilState(displayNotificationAtom);
   const updateProfile = useSetRecoilState(updateProfileAtom);
   const displayUploadMemory = useSetRecoilState(displayUploadMemoryAtom);
+  const displaySearch = useSetRecoilState(displaySearchAtom);
 
   function closeAllOpenedComponents() {
     displaySettings(false);
@@ -24,6 +25,7 @@ function Feed() {
     displayNotification(false);
     updateProfile(false);
     displayUploadMemory(false);
+    displaySearch(false);
   }
 
   async function likeFunc(id) {
