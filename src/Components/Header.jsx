@@ -13,7 +13,7 @@ function Header() {
     <>
 
       <div className='flex flex-row justify-between shadow-xl/10 border-0 h-17'>
-        <Link to='/'>
+        <Link to='/feed'>
           <img className='w-24 pl-4' src={logoText} alt="" />
         </Link>
         <div className='flex flex-row align-middle justify-center items-center gap-2'>
