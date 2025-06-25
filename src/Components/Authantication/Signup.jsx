@@ -1,15 +1,20 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link, replace, useNavigate } from 'react-router-dom';
 import LogoText from '../../assets/svg logo.svg';
 import backgroundImage from '../../assets/background.png';
 import { axiosInstance } from '../../../axios/axiosInstance';
+import { createElement } from 'react';
 
 export default function Signup() {
+
     const navigate = useNavigate();
+    const otpBtn = useRef(null);
+
     const [formData, setFormData] = useState({
         username: '',
         email: '',
+        otp: '',
         mobile: '',
         password: '',
         confirmPassword: ''
@@ -43,13 +48,14 @@ export default function Signup() {
                 const createUser = await axiosInstance.post('/auth/signup', {
                     user_name: formData.username,
                     user_email: formData.email,
+                    user_otp: formData.otp,
                     user_mobile_no: formData.mobile,
                     user_password: formData.password,
                 },
                     {
                         withCredentials: true
                     })
-                if (createUser.status >=200 && createUser.status < 300) {
+                if (createUser.status >= 200 && createUser.status < 300) {
                     window.location.href = "/";
                 }
                 else {
@@ -62,6 +68,30 @@ export default function Signup() {
 
         }
     };
+
+    async function sendOtp() {
+
+        if (formData.email) {
+            otpBtn.current.innerHTML = 'Sending';
+            try {
+                const send = await axiosInstance.post('/auth/email/verify', {
+                    user_email: formData.email
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    withCredentials: true
+                })
+                if (send.status >= 200 && send.status < 300) {
+                   otpBtn.current.innerHTML = 'Re-Send'; 
+                } else {
+                    otpBtn.current.innerHTML = 'Retry';
+                }
+            } catch (error) {
+                otpBtn.current.innerHTML = 'Retry';
+            }
+        }
+    }
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4" style={{ backgroundImage: `url(${backgroundImage})` }}>
@@ -84,14 +114,40 @@ export default function Signup() {
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <div className='flex flex-row w-[100%]'>
+                            <input
+                                type="email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                required
+                                className="w-[70%] px-4 py-2 border border-gray-300 rounded-l-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="you@example.com"
+                            />
+                            <button
+                                type='button'
+                                ref={otpBtn}
+                                className='bg-blue-500 hover:ring-2 hover:ring-blue-500 cursor-pointer text-white rounded-r-xl w-[30%]'
+                                onClick={() => {sendOtp()}}
+                            >
+                                Send OTP
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Enter otp send to your Email</label>
                         <input
-                            type="email"
-                            name="email"
-                            value={formData.email}
+                            type="text"
+                            inputMode='numeric'
+                            pattern='[0-9]*'
+                            maxLength='6'
+                            name="otp"
+                            value={formData.otp}
+                            onInput={(e) => { e.target.value = e.target.value.replace(/[^0-9]/g, ''); }}
                             onChange={handleChange}
                             required
                             className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="you@example.com"
+                            placeholder="Enter OTP"
                         />
                     </div>
                     <div>

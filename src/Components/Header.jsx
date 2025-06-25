@@ -1,13 +1,14 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, replace } from 'react-router-dom'
 import logoText from '../assets/svg logo.svg'
 import { displayNotificationAtom, displayProfileAtom, displaySearchAtom, displaySettingsAtom, userDataAtom } from '../atoms/userDataAtom.js';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { FaSearch } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
 
-
+  
 
   return (
     <>
@@ -34,8 +35,10 @@ function Search() {
   const displaySettings = useSetRecoilState(displaySettingsAtom);
   const displayNotification = useSetRecoilState(displayNotificationAtom);
   const displayProfile = useSetRecoilState(displayProfileAtom);
+  const navigate = useNavigate();
 
   function displaySearchFunc() {
+    navigate('/feed', { replace: true });
     displayNotification(false);
     displayProfile(false);
     displaySettings(false);
@@ -56,8 +59,10 @@ function Setting() {
   const displaySettings = useSetRecoilState(displaySettingsAtom);
   const displayNotification = useSetRecoilState(displayNotificationAtom);
   const displayProfile = useSetRecoilState(displayProfileAtom);
+  const navigate =  useNavigate();
 
   function displaySettingsFunc() {
+    navigate('/feed', { replace: true });
     displayNotification(false);
     displayProfile(false);
     displaySettings(pre => !pre);
@@ -82,8 +87,10 @@ function Notification() {
   const displayProfile = useSetRecoilState(displayProfileAtom);
   const displayNotification = useSetRecoilState(displayNotificationAtom);
   const displaySettings = useSetRecoilState(displaySettingsAtom);
+  const navigate = useNavigate();
 
   function displayNotificationFunc() {
+    navigate('/feed', { replace: true });
     displaySettings(false);
     displayProfile(false);
     displayNotification(pre => !pre);
@@ -106,8 +113,10 @@ function Profile() {
   const displayProfile = useSetRecoilState(displayProfileAtom);
   const displayNotification = useSetRecoilState(displayNotificationAtom);
   const displaySettings = useSetRecoilState(displaySettingsAtom);
+  const navigate = useNavigate();
 
   function displayProfileFunc() {
+    navigate('/feed', { replace: true });
     displayNotification(false);
     displaySettings(false);
     displayProfile(pre => !pre);

@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { FiLock, FiLogOut, FiCamera } from 'react-icons/fi';
-import { displayProfileAtom, updateProfileAtom, userDataAtom } from '../atoms/userDataAtom';
+import { displayFriendsAtom, displayProfileAtom, updateProfileAtom, userDataAtom } from '../atoms/userDataAtom';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { FaExchangeAlt, FaEnvelope, FaUsers, FaClock } from 'react-icons/fa';
 import { IoClose } from "react-icons/io5";
@@ -18,6 +18,7 @@ const Profile = () => {
   const [userData, setUserData] = useRecoilState(userDataAtom);
   const [updateProfile, setUpdateProfile] = useRecoilState(updateProfileAtom);
   const setDisplayProfile = useSetRecoilState(displayProfileAtom);
+  const displayFriends = useSetRecoilState(displayFriendsAtom)
 
   async function logout() {
     logoutRef.current.innerHTML = "Loging Out"
@@ -59,7 +60,7 @@ const Profile = () => {
           </Link>
 
           {/* Friends */}
-          <div className="flex items-center gap-3 hover:bg-gray-200 p-2 rounded cursor-pointer">
+          <div onClick={() => displayFriends(pre => !pre)} className="flex items-center gap-3 hover:bg-gray-200 p-2 rounded cursor-pointer">
             <FaUsers className="text-blue-600 text-xl" />
             <span className="text-gray-800 font-medium">Friends</span>
           </div>

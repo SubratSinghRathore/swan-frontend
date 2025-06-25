@@ -120,7 +120,7 @@ function Messages() {
           </Link>
         </div>
         {friendList.map((friend) => (
-          <div key={friend.friend_id} onClick={() => { setSelectedUser(friend.friend_id); friendRef.current.style.display = 'none' }} className={`p-2 cursor-pointer rounded hover:bg-blue-100`}>
+          <div key={friend.friend_id} onClick={() => { setSelectedUser(friend.friend_id); friendRef.current.style.display = 'none' }} className={`p-2 cursor-pointer rounded hover:bg-blue-100 `}>
             <FriendInfo friend_id={friend.friend_id} />
           </div>
         ))}
