@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from "react";
 import { createBrowserRouter, createRoutesFromElements, Navigate, Route } from "react-router-dom";
 import App from "../App.jsx";
 import Loading from "./Loading.jsx";
-import Error from "./error.jsx";
+import Error from "./Error.jsx";
 const BodyRouts = lazy(() => import("./BodyRouts.jsx"));
 const Messages = lazy(() => import('./Messages.comp.jsx'));
 const Home = lazy(() => import('./Home.jsx'));
