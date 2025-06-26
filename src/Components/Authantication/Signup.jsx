@@ -31,6 +31,9 @@ export default function Signup() {
         if (formData.password !== formData.confirmPassword) {
             alert("Passwords do not match");
             return;
+        } else if (formData.password.length < 8) {
+            alert("Passwords must be atleast 8 characters");
+            return;
         }
 
         //checking username availability
@@ -155,7 +158,10 @@ export default function Signup() {
                         <input
                             type="tel"
                             name="mobile"
+                            inputMode='numeric'
+                            maxLength='10'
                             value={formData.mobile}
+                            onInput={(e) => { e.target.value = e.target.value.replace(/[^0-9]/g, ''); }}
                             onChange={handleChange}
                             required
                             className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"

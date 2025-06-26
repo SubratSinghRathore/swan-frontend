@@ -110,6 +110,9 @@ function Feed() {
   return (
     <>
       <div className='flex flex-col m-auto xl:max-w-xl sm:max-w-2/3 h-screen [@media(max-width:400px)]:wscreen' onClick={closeAllOpenedComponents}>
+        <div className='w-full sm:h-28 mt-4 h-[13%] min-h-[13%]'>
+            <Allfriends />
+        </div>
         {posts.map(post => (
           <div key={post.post_id} className='sm:w-full rounded-xl border border-b-gray-600 m-4 shadow-sm shadow-gray-600 '>
             <div className='top_bar p-2'>
@@ -138,5 +141,69 @@ function Feed() {
     </>
   )
 }
+
+
+function FriendInfo({ friend_id }) {
+
+  const [friendDetails, setFriendDetails] = useState([])
+
+  useEffect(() => {
+    try {
+      const friendDetailsFunction = async () => {
+        const friendDetails = await axiosInstance.post('/message/friendDetails', {
+          friend_id
+        }, {
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          withCredentials: true
+        })
+        setFriendDetails(friendDetails.data.friendDetails[0]);
+      }; friendDetailsFunction();
+    } catch (error) {
+      console.log('error in fetching  friend details', error);
+    }
+  }, [])
+
+
+  return (
+    <div className='flex flex-col justify-center items-center gap-2'>
+      <img className='min-w-18 w-18 rounded-full [@media(max-width:400px)]:w-8' src={friendDetails.user_profile_url} alt={friendDetails.user_name}></img>
+      <div className='text-xs font-semibold truncate w-[80%] m-auto flex justify-center' >{friendDetails.user_name}</div>
+    </div>
+  )
+}
+
+function Allfriends() {
+
+  const [FriendList, setFriendList] = useState([]);
+
+  useEffect(() => {
+    const allFriends = async () => {
+      const friends = await axiosInstance.get('/message/friends', {
+        headers: {
+          "Content-Type": "application/json"
+        },
+        withCredentials: true
+      })
+      setFriendList(friends.data.allFriends)
+    }; allFriends();
+  }, [])
+
+  return (
+    <>
+      <div className='flex justify-start gap-4 items-center sm:w-[105%] w-[100%] overflow-scroll scroll-smooth'>
+        {FriendList.map(friend => {
+          return (
+            <div key={friend.friend_id}>
+              <FriendInfo className='w-[10%]' friend_id={friend.friend_id} />
+            </div>
+          )
+        })}
+      </div>
+    </>
+  )
+}
+
 
 export default Feed;

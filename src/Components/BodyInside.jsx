@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { RecoilRoot, useRecoilValue, useSetRecoilState } from 'recoil';
 import { displaySettingsAtom, displayProfileAtom, displayNotificationAtom } from '../atoms/userDataAtom.js';
 import Settings from './Settings.jsx';
