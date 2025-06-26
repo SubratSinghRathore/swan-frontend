@@ -169,7 +169,7 @@ function FriendInfo({ friend_id }) {
   return (
     <div className='flex flex-col justify-center items-center gap-2'>
       <img className='min-w-18 w-18 rounded-full [@media(max-width:400px)]:w-8' src={friendDetails.user_profile_url} alt={friendDetails.user_name}></img>
-      <div className='text-xs font-semibold truncate w-[80%] m-auto flex justify-center' >{friendDetails.user_name}</div>
+      <div className='text-xs font-semibold truncate w-[80%] m-auto' >{friendDetails.user_name}</div>
     </div>
   )
 }
