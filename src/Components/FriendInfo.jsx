@@ -26,7 +26,7 @@ function FriendInfo({friend_id}) {
 
   return (
     <div className='flex justify-start items-center gap-2'>
-        <img className='w-12 rounded-full [@media(max-width:400px)]:w-8' src={friendDetails.user_profile_url} alt={friendDetails.user_name}></img>
+        <img className='w-12 rounded-full' src={friendDetails.user_profile_url} alt={friendDetails.user_name}></img>
         <div className='text-xl font-semibold truncate' >{friendDetails.user_name}</div>
     </div>
   )
