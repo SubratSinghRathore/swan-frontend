@@ -11,6 +11,7 @@ const Settings = () => {
   const otpBtn = useRef(null);
   const passwordBtn = useRef(null);
   const mobileNoBtn = useRef(null);
+  const logoutRef = useRef(null);
   const [userData, setUserData] = useRecoilState(userDataAtom);
   const [formData, setFormData] = useState({
     email: '',
@@ -115,6 +116,15 @@ const Settings = () => {
   };
 
 
+  async function logout() {
+    logoutRef.current.innerHTML = "Loging Out"
+    const logout = await axiosInstance.post('/auth/logout');
+    if (logout.status >= 200 && logout.status < 300) {
+      window.location.href = '/';
+    }
+
+  }
+
 
   return (
     <div className="w-80 sm:w-100 overflow-scroll sm:h-[calc(100vh-120px)] h-[calc(100vh-210px)] bg-white rounded-lg shadow-lg notification_banner z-100 absolute right-2">
@@ -184,7 +194,7 @@ const Settings = () => {
         <button onClick={changeMobileNo} ref={mobileNoBtn} className="w-[100%] mt-2 bg-blue-500 text-white p-2 rounded-md cursor-pointer" type="button">Change Mobile No</button>
       </div>
       <div className="m-4">
-        <button className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-white text-red-600 rounded-lg border border-gray-500 hover:bg-gray-200 transition">
+        <button ref={logoutRef} onClick={logout} className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-white text-red-600 rounded-lg border border-gray-500 hover:bg-gray-200 transition">
           <FiLogOut />
           Logout
         </button>
