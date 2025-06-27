@@ -13,7 +13,8 @@ import previousChat from '../utilities/previousChat.js';
 
 function Messages() {
 
-
+  const allOnlineUsers = useRef(null);
+  const currentOnlineUsers = useRef([]);
   const userData = useRecoilValue(userDataAtom);
   const socketRef = useRef(null);
   const input = useRef(null);
@@ -63,6 +64,21 @@ function Messages() {
 
   }, [selectedUser])
 
+  useEffect(() => {
+    if (allOnlineUsers.current?.length > 0) {      
+      currentOnlineUsers.current.push(allOnlineUsers.current.map(i => i[0]));
+    }
+  }, [allOnlineUsers.current])
+
+  function Online({friend_id}) {
+    for(var i=0 ; i<currentOnlineUsers.current; i++) {
+      if(friend_id == currentOnlineUsers.current[i]) {
+        return <><div className='h-3 w-3 rounded-full absolute bottom-2 text-green-500 text-xs left-16'>online</div></>
+      }
+    }
+    return
+  }
+
 
   useEffect(() => {
 
@@ -73,7 +89,7 @@ function Messages() {
     socketRef.current.on('connect', () => {
 
       socketRef.current.emit('setStatus', userData.userData.user_id);
-      socketRef.current.on('allUsers', (array) => { });
+      socketRef.current.on('allUsers', (array) => { allOnlineUsers.current = array });
 
     })
 
@@ -120,8 +136,9 @@ function Messages() {
           </Link>
         </div>
         {friendList.map((friend) => (
-          <div key={friend.friend_id} onClick={() => { setSelectedUser(friend.friend_id); friendRef.current.style.display = 'none' }} className={`p-2 cursor-pointer rounded hover:bg-blue-100 `}>
+          <div key={friend.friend_id} onClick={() => { setSelectedUser(friend.friend_id); friendRef.current.style.display = 'none' }} className={`p-2 cursor-pointer rounded hover:bg-blue-100 relative`}>
             <FriendInfo friend_id={friend.friend_id} />
+            <Online friend_id={friend.friend_id}/>
           </div>
         ))}
       </div>
