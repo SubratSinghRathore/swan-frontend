@@ -9,9 +9,11 @@ export default function Home() {
 
   const userDetails = useRecoilValue(userDataAtom);
   const navigate = useNavigate();
-
-  if(!userDetails) {window.location = '/signup'}
-  else {window.location = '/feed'}
+  useEffect(() => {
+    if (!userDetails) {
+      navigate('/signup', { replace: true });
+    } else { navigate('/feed', { replace: true }) };
+  }, [userDetails, navigate]);
 
   return (
     <>

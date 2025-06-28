@@ -6,13 +6,18 @@ export const notificationCountAtom = atom({
     default: selector({
         key: 'notificationCountSelector',
         get: async function () {
-            const getNotifications = await axiosInstance.get('/message/notification', {
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                withCredentials: true
-            })
-            return (getNotifications.data.notifications.length);
+            try {
+
+                const getNotifications = await axiosInstance.get('/message/notification', {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    withCredentials: true
+                })
+                return (getNotifications.data.notifications.length);
+            } catch (error) {
+
+            }
         }
     })
 })

@@ -15,7 +15,7 @@ export const userDataAtom = atom({
         });
         return res.data;
       } catch (err) {
-        console.error('Error fetching user data:', err);
+        // console.error('Error fetching user data:', err);
         return null;
       }
     },
