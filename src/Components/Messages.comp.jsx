@@ -67,7 +67,7 @@ function Messages() {
 
   useEffect(() => {
 
-    socketRef.current = io('https://swan-backend.onrender.com', {
+    socketRef.current = io('http://localhost:3000', {
       withCredentials: true
     })
 
@@ -88,7 +88,7 @@ function Messages() {
 
 
     return () => {
-      socketRef.current.disconnect(userData.userData.user_id);
+      socketRef.current.disconnect();
     }
   }, [])
 
