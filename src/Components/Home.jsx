@@ -11,7 +11,7 @@ export default function Home() {
   const navigate = useNavigate();
 
   if(!userDetails) {window.location = '/signup'}
-
+  else {window.location = '/feed'}
 
   return (
     <>
