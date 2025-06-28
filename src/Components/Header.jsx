@@ -2,13 +2,13 @@ import React from 'react'
 import { Link, replace } from 'react-router-dom'
 import logoText from '../assets/svg logo.svg'
 import { displayNotificationAtom, displayProfileAtom, displaySearchAtom, displaySettingsAtom, userDataAtom } from '../atoms/userDataAtom.js';
+import { notificationCountAtom } from '../atoms/messagesAtom.js';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { FaSearch } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 function Header() {
 
-  
 
   return (
     <>
@@ -43,7 +43,7 @@ function Search() {
     displayProfile(false);
     displaySettings(false);
     displaySearch(pre => !pre);
-  }
+  };
 
   return (
     <div className=' w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center' onClick={displaySearchFunc}>
@@ -59,7 +59,7 @@ function Setting() {
   const displaySettings = useSetRecoilState(displaySettingsAtom);
   const displayNotification = useSetRecoilState(displayNotificationAtom);
   const displayProfile = useSetRecoilState(displayProfileAtom);
-  const navigate =  useNavigate();
+  const navigate = useNavigate();
 
   function displaySettingsFunc() {
     navigate('/feed', { replace: true });
@@ -84,6 +84,7 @@ function Setting() {
 }
 
 function Notification() {
+  const notificationCount = useRecoilValue(notificationCountAtom);
   const displayProfile = useSetRecoilState(displayProfileAtom);
   const displayNotification = useSetRecoilState(displayNotificationAtom);
   const displaySettings = useSetRecoilState(displaySettingsAtom);
@@ -99,9 +100,10 @@ function Notification() {
   return (
     <>
       <div className=' w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center content-center' onClick={displayNotificationFunc}>
-        <div>
+        <div className='relative'>
           <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true" style={{ color: "black" }}><path d="M3 9.5a9 9 0 1 1 18 0v2.927c0 1.69.475 3.345 1.37 4.778a1.5 1.5 0 0 1-1.272 2.295h-4.625a4.5 4.5 0 0 1-8.946 0H2.902a1.5 1.5 0 0 1-1.272-2.295A9.01 9.01 0 0 0 3 12.43V9.5zm6.55 10a2.5 2.5 0 0 0 4.9 0h-4.9z"></path></svg>
-        </div>
+          <div className='absolute top-3 left-4 w-6 h-6 shadow shadow-gray-600 flex justify-center items-center text-xs bg-orange-700 rounded-full text-white'>{notificationCount > 99 ? '99+' : notificationCount }</div>
+        </div>        
       </div>
     </>
   )

@@ -88,7 +88,7 @@ function Messages() {
 
 
     return () => {
-      socketRef.current.disconnect();
+      socketRef.current.disconnect(userData.userData.user_id);
     }
   }, [])
 
