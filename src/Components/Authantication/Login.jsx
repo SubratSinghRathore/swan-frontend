@@ -23,11 +23,12 @@ export default function Login() {
           'Content-Type': 'application/json'
         },
         withCredentials: true
-      })
-      if (login.status >= 200 && login.status < 300) { window.location.href = "/" }
-      else { loginRef.current.innerHTML = "Invalid Credentials" }
+      });
+      if (login.status >= 200 && login.status < 300) {
+        window.location.href = "/";
+      }
     } catch (error) {
-      console.log(error)
+      loginRef.current.innerHTML = "Invalid Credentials" 
     }
   };
 

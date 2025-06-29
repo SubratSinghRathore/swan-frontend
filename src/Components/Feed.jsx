@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo, useRef } from 'react';
 import { axiosInstance } from '../../axios/axiosInstance';
 import { FaThumbsUp } from 'react-icons/fa';
 import likeAudio from '../assets/bell-notification-337658.mp3';
@@ -7,6 +7,8 @@ import { displaySettingsAtom, displayProfileAtom, displayNotificationAtom, updat
 
 function Feed() {
 
+  const loadMore = useRef(null);
+  const fullPost = useRef(null);
   const audio = new Audio(likeAudio);
   const [offset, setOffset] = useState(0);
   const [posts, setPosts] = useState([]);
@@ -43,18 +45,31 @@ function Feed() {
 
 
   useEffect(() => {
-    axiosInstance.post('/feed/posts', {
-      offset
-    }, {
-      headers: {
-        "Content-type": "application/json"
-      },
-      withCredentials: true
-    })
-      .then((res) => {
-        setPosts(res.data.posts)
+    loadMore.current.innerHTML = 'Hold on loading...'
+    try {
+      axiosInstance.post('/feed/posts', {
+        offset
+      }, {
+        headers: {
+          "Content-type": "application/json"
+        },
+        withCredentials: true
       })
+        .then((res) => {
+          setPosts(pre => [...pre, ...res.data.posts]);
+          loadMore.current.innerHTML = 'load more'
+        })
+    } catch (error) {
+      console.log('error in fetching posts', error);
+      loadMore.current.innerHTML = 'load more'
+    };
   }, [offset]);
+
+
+  useEffect(() => {
+
+
+  }, [])
 
 
   function PostOrigin({ origin }) {
@@ -106,15 +121,14 @@ function Feed() {
     else { return likes }
   }
 
-
   return (
     <>
-      <div className='flex flex-col m-auto xl:max-w-xl sm:max-w-2/3 h-screen [@media(max-width:400px)]:wscreen' onClick={closeAllOpenedComponents}>
+      <div ref={fullPost} className='flex items-center flex-col m-auto xl:max-w-xl sm:max-w-2/3 h-screen [@media(max-width:400px)]:wscreen' onClick={closeAllOpenedComponents}>
         <div className='w-full sm:h-28 mt-4 h-[13%] min-h-[13%]'>
-            <Allfriends />
+          <Allfriends />
         </div>
-        {posts.map(post => (
-          <div key={post.post_id} className='sm:w-full rounded-xl border border-b-gray-600 m-4 shadow-sm shadow-gray-600 '>
+        {posts.map((post, index) => (
+          <div key={index} className='sm:w-full rounded-xl border border-b-gray-600 m-4 shadow-sm shadow-gray-600 '>
             <div className='top_bar p-2'>
               <PostOrigin origin={post.origin} />
             </div>
@@ -129,7 +143,7 @@ function Feed() {
                 <div className='flex justify-start relative'>
                   <FaThumbsUp className='m-1 fill-blue-600 w-6 text-2xl' />
                   <div className='flex justify-end items-center cursor-pointer absolute w-[180%] h-[100%] top-[0%] left-[0%]' onClick={async (e) => { const likes = (await likeFunc(post.post_id)); e.target.innerHTML = likes }}>
-                    {post.total_likes != 0 ? exceedLikes(post.total_likes) : "Be the first to like"}
+                    {post.total_likes != 0 ? exceedLikes(post.total_likes) : "like"}
                   </div>
                 </div>
                 <div>{new Date(post.created_at).toLocaleDateString()}</div>
@@ -137,6 +151,9 @@ function Feed() {
             </div>
           </div>
         ))}
+        <div className='flex justify-center pb-30'>
+        <button ref={loadMore} onClick={() => setOffset(pre => pre + 10)} className='flex justify-center h-12 bg-blue-500 p-4 rounded-sm text-white '>load more</button>
+        </div>
       </div>
     </>
   )

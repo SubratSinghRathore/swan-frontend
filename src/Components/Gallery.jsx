@@ -15,7 +15,7 @@ function Gallery() {
           'Content-Type': 'application/json'
         }
       })
-      setAllPosts(allPosts.data); console.log(allPosts.data)
+      setAllPosts(allPosts.data);
     }; allPostsFunc();
   }, []);
 

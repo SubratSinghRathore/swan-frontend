@@ -74,7 +74,7 @@ function Messages() {
     socketRef.current.on('connect', () => {
 
       socketRef.current.emit('setStatus', userData.userData.user_id);
-      socketRef.current.on('allUsers', (array) => { allOnlineUsers.current = array });
+      socketRef.current.on('allUsers', (array) => { allOnlineUsers.current = array; });
 
     })
 
@@ -127,7 +127,7 @@ function Messages() {
 
 
   return (
-    <div className="flex sm:h-[calc(100vh-70px)] h-[calc(100vh-185px)]">
+    <div className="flex sm:h-[calc(100vh-70px)] h-[calc(100vh-185px)] w-full">
       {/* Left - User List */}
       <div ref={friendRef} className="sm:min-w-32 w-60 border-l p-4 overflow-y-auto bg-gray-50 h-full [@media(max-width:400px)]:w-[40%] [@media(max-width:500px)]:w-full">
         <div className="flex justify-between items-center font-semibold text-2xl mb-4 text-blue-600">
@@ -144,7 +144,7 @@ function Messages() {
         ))}
       </div>
       {/* Right - Chat Area */}
-      <div className="flex-1 flex flex-col border-r">
+      <div className="flex-1 flex flex-col border-r w-full">
         {selectedUser ?
           <div className='flex justify-between items-center border-b font-bold text-lg bg-gray-100 h-15'>
             <div className=" flex gap-3 justify-start items-center">
@@ -157,8 +157,8 @@ function Messages() {
         {selectedUser ?
           <div ref={messageBody} className="flex flex-col gap-[10px] h-full overflow-y-auto p-4 ">
             {messages.map((message, index) => (
-              <div key={index} className='flex flex-col'>
-                <div className={message.sender_id === userData.userData.user_id ? 'text-black sm:text-2xl bg-gray-300 self-end p-3 rounded-2xl rounded-tr-none' : 'text-white sm:text-2xl bg-blue-500 self-start p-3 rounded-2xl rounded-tl-none'}>{message.message}</div>
+              <div key={index} className='flex flex-col w-full'>
+                <div className={message.sender_id === userData.userData.user_id ? 'text-black sm:text-2xl bg-gray-300 self-end p-3 rounded-2xl rounded-tr-none max-w-[80%] break-words' : 'max-w-[80%] break-words text-white sm:text-2xl bg-blue-500 self-start p-3 rounded-2xl rounded-tl-none'}>{message.message}</div>
               </div>
             ))}
             <div ref={scrollToBotom} />

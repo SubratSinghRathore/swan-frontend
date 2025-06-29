@@ -90,12 +90,12 @@ const Notifications = () => {
       </div>
       <div className="divide-y">
         {notifications.map((notif) => (
-          <div key={notif.id} className="flex items-start px-4 py-3 hover:bg-gray-100">
+          <div key={notif.id} className="flex items-start px-4 py-3 hover:bg-gray-100 max-w-[100%]">
             <SenderInfo sender_id={notif.sender_id} />
-            <div className="flex-1 ml-3">
-              <p className="text-sm">
-                <span className="font-medium">{notif.notification_description}</span>
-              </p>
+            <div className="flex-1 ml-3 max-w-[80%]">
+              <div className="text-sm w-[90%]">
+                <div className="font-medium truncate max-w-[90%] ">{notif.notification_description}</div>
+              </div>
               <span className="text-xs text-gray-500">{new Date(notif.create_at).toLocaleTimeString()}</span>
             </div>
             {/* <IoClose className="text-xl text-gray-400 rounded-full m-auto" /> */}
